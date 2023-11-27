@@ -1,0 +1,14 @@
+{"level":"info","ts":"[2023-11-25 17:54:29.516]","caller":"test/init_test.go:35","msg":"hello world!"}
+{"level":"error","ts":"[2023-11-25 17:54:29.541]","caller":"test/init_test.go:36","msg":"hello world!"}
+{"level":"warn","ts":"[2023-11-25 17:54:29.541]","caller":"test/init_test.go:37","msg":"hello world!"}
+{"level":"error","ts":"[2023-11-27 20:33:57.667]","caller":"controller/register.go:46","msg":"tools.Decrypt err: priKey.Decrypt err: crypto/rsa: decryption error"}
+{"level":"error","ts":"[2023-11-27 20:33:57.891]","caller":"controller/register.go:46","msg":"tools.Decrypt err: priKey.Decrypt err: crypto/rsa: decryption error"}
+{"level":"error","ts":"[2023-11-27 20:42:02.064]","caller":"controller/register.go:46","msg":"tools.Decrypt err: priKey.Decrypt err: crypto/rsa: decryption error"}
+{"level":"error","ts":"[2023-11-27 20:43:59.316]","caller":"controller/register.go:47","msg":"tools.Decrypt err: priKey.Decrypt err: crypto/rsa: decryption error"}
+{"level":"error","ts":"[2023-11-27 20:47:07.338]","caller":"controller/register.go:47","msg":"tools.Decrypt err: priKey.Decrypt err: crypto/rsa: decryption error"}
+{"level":"error","ts":"[2023-11-27 22:08:30.070]","caller":"controller/resource.go:97","msg":"dao.DeleteResourceByLink err: record not found"}
+{"level":"error","ts":"[2023-11-27 22:08:30.072]","caller":"controller/resource.go:97","msg":"dao.DeleteResourceByLink err: record not found"}
+{"level":"error","ts":"[2023-11-27 22:09:15.066]","caller":"controller/resource.go:97","msg":"dao.DeleteResourceByLink err: record not found"}
+{"level":"error","ts":"[2023-11-27 22:09:15.106]","caller":"controller/resource.go:97","msg":"dao.DeleteResourceByLink err: record not found"}
+{"level":"error","ts":"[2023-11-27 22:10:32.040]","caller":"controller/resource.go:97","msg":"dao.DeleteResourceByLink err: record not found"}
+{"level":"error","ts":"[2023-11-27 22:13:20.305]","caller":"controller/digitalperson.go:110","msg":"dao.DeleteDigitalPersonByLink err: record not found"}

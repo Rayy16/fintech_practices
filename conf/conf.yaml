@@ -1,0 +1,30 @@
+database:
+  host: localhost
+  port: 3306
+  user: root
+  password: 123456
+  database: fintech_practices
+  log_to_file: true
+  filename: db.log
+  log_mode: info
+  slow_threshold: 5000
+  max_idle_conns: 2000
+  max_open_conns: 3000
+
+log:
+  filename: runtime.log
+  level: info
+  dir: C:\GoProject\fintech_practices\logs
+  line_no: true
+  format: json
+  max_backups: 7
+  max_size: 20
+  max_age: 7
+
+server:
+  host: 127.0.0.1
+  port: 33322
+  engine_mode: debug
+  dp_root_dir: C:\GoProject\fintech_practices\files\dp
+  resource_root_dir: C:\GoProject\fintech_practices\files\resource
+  cover_image_root_dir: C:\GoProject\fintech_practices\files\cover_image

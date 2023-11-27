@@ -1,0 +1,483 @@
+
+2023/11/27 13:37:32 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94 Error 1054 (42S22): Unknown column ' dp_id' in 'field list'
+[44.566ms] [rows:0] INSERT INTO `digital_person_info` (` dp_id`,` dp_name`,` dp_status`,` owner_id`,` published`,`audited`,`content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('123','test_dp_1',0,'rliu',false,false,'hello world','test_dp_1.png','test_dp_1.mp4',false,0,'2023-11-27 13:37:31.986','2023-11-27 13:37:31.986')
+
+2023/11/27 13:48:42 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94 Error 1054 (42S22): Unknown column ' dp_id' in 'field list'
+[2.268ms] [rows:0] INSERT INTO `digital_person_info` (` dp_id`,` dp_name`,` dp_status`,` owner_id`,` published`,`audited`,`content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('123','test_dp_1',0,'rliu',false,false,'hello world','test_dp_1.png','test_dp_1.mp4',false,0,'2023-11-27 13:48:42.764','2023-11-27 13:48:42.764')
+
+2023/11/27 13:52:18 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94 Error 1054 (42S22): Unknown column ' dp_id' in 'field list'
+[2.351ms] [rows:0] INSERT INTO `digital_person_info` (` dp_id`,` dp_name`,` dp_status`,` owner_id`,` published`,`audited`,`content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('123','test_dp_1',0,'rliu',false,false,'hello world','test_dp_1.png','test_dp_1.mp4',false,0,'2023-11-27 13:52:18.036','2023-11-27 13:52:18.036')
+
+2023/11/27 13:53:09 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94 Error 1054 (42S22): Unknown column 'content' in 'field list'
+[1.870ms] [rows:0] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('123','test_dp_1',0,'rliu',false,false,'hello world','test_dp_1.png','test_dp_1.mp4',false,0,'2023-11-27 13:53:09.592','2023-11-27 13:53:09.592')
+
+2023/11/27 13:53:33 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94 Error 1364 (HY000): Field 'id' doesn't have a default value
+[64.107ms] [rows:0] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('123','test_dp_1',0,'rliu',false,false,'hello world','test_dp_1.png','test_dp_1.mp4',false,0,'2023-11-27 13:53:33.025','2023-11-27 13:53:33.025')
+
+2023/11/27 13:53:59 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94 Error 1364 (HY000): Field 'id' doesn't have a default value
+[30.808ms] [rows:0] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('123','test_dp_1',0,'rliu',false,false,'hello world','test_dp_1.png','test_dp_1.mp4',false,0,'2023-11-27 13:53:59.739','2023-11-27 13:53:59.739')
+
+2023/11/27 13:57:21 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[52.975ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('123','test_dp_1',0,'rliu',false,false,'hello world','test_dp_1.png','test_dp_1.mp4',false,0,'2023-11-27 13:57:21.391','2023-11-27 13:57:21.391')
+
+2023/11/27 13:57:21 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[2.761ms] [rows:1] SELECT * FROM `digital_person_info` WHERE owner_id = 'rliu' AND deleted = false
+
+2023/11/27 13:59:18 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[34.982ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('456','test_dp_2',0,'admin',false,false,'hello world','test_dp_2.png','test_dp_2.mp4',false,0,'2023-11-27 13:59:18.216','2023-11-27 13:59:18.216')
+
+2023/11/27 13:59:18 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.528ms] [rows:1] SELECT * FROM `digital_person_info` WHERE owner_id = 'rliu' AND deleted = false
+
+2023/11/27 14:05:39 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[27.363ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('123','test_dp_1',0,'rliu',false,false,'hello world','test_dp_1.png','test_dp_1.mp4',false,0,'2023-11-27 14:05:39.094','2023-11-27 14:05:39.094')
+
+2023/11/27 14:05:39 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[1.038ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('456','test_dp_2',0,'admin',false,false,'hello world','test_dp_2.png','test_dp_2.mp4',false,0,'2023-11-27 14:05:39.123','2023-11-27 14:05:39.123')
+
+2023/11/27 14:05:39 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.506ms] [rows:1] SELECT * FROM `digital_person_info` WHERE owner_id = 'rliu' AND deleted = false
+
+2023/11/27 14:05:39 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:83
+[1.054ms] [rows:1] SELECT * FROM `digital_person_info` WHERE dp_link = 'test_dp_1.mp4' and deleted = false ORDER BY `digital_person_info`.`id` LIMIT 1
+
+2023/11/27 14:05:39 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:90
+[2.612ms] [rows:1] UPDATE `digital_person_info` SET `dp_id`='123',`dp_name`='test_dp_1',`dp_status`=0,`owner_id`='rliu',`published`=false,`audited`=false,`dp_content`='hello world',`cover_image_link`='test_dp_1.png',`dp_link`='test_dp_1.mp4',`deleted`=true,`hot_score`=0,`create_time`='2023-11-27 14:05:39',`update_time`='2023-11-27 14:05:39.127' WHERE `id` = 3
+
+2023/11/27 14:05:39 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.000ms] [rows:0] SELECT * FROM `digital_person_info` WHERE owner_id = 'rliu' AND deleted = false
+
+2023/11/27 14:05:39 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.515ms] [rows:1] SELECT * FROM `digital_person_info` WHERE owner_id = 'admin' AND deleted = false
+
+2023/11/27 14:07:49 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[30.782ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_3.mp4','test_dp_3',0,'rliu',false,false,'hello world','test_dp_3.png','test_dp_3.mp4',false,0,'2023-11-27 14:07:49.53','2023-11-27 14:07:49.53')
+
+2023/11/27 14:07:49 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[3.648ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_4.mp4','test_dp_2',0,'admin',false,false,'hello world','test_dp_4.png','test_dp_4.mp4',false,0,'2023-11-27 14:07:49.561','2023-11-27 14:07:49.561')
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[28.483ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_1.mp4','test_dp_1',0,'test_rliu',false,false,'hello world','test_dp_1.png','test_dp_1.mp4',false,0,'2023-11-27 14:28:58.934','2023-11-27 14:28:58.934')
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[4.156ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_2.mp4','test_dp_2',0,'test_admin',false,false,'hello world','test_dp_2.png','test_dp_2.mp4',false,0,'2023-11-27 14:28:58.963','2023-11-27 14:28:58.963')
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[1.819ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_3.mp4','test_dp_3',0,'test_admin',false,false,'hello world','test_dp_3.png','test_dp_3.mp4',false,0,'2023-11-27 14:28:58.968','2023-11-27 14:28:58.968')
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[4.047ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_4.mp4','test_dp_4',1,'test_admin',false,false,'hello world','test_dp_4.png','test_dp_4.mp4',false,0,'2023-11-27 14:28:58.971','2023-11-27 14:28:58.971')
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[1.172ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_5.mp4','test_dp_5',2,'test_admin',false,false,'hello world','test_dp_5.png','test_dp_5.mp4',false,0,'2023-11-27 14:28:58.974','2023-11-27 14:28:58.974')
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[1.036ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_6.mp4','test_dp_6',3,'test_admin',false,false,'hello world','test_dp_6.png','test_dp_6.mp4',false,0,'2023-11-27 14:28:58.976','2023-11-27 14:28:58.976')
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.505ms] [rows:1] SELECT * FROM `digital_person_info` WHERE owner_id = 'test_rliu' AND deleted = false
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:83
+[0.000ms] [rows:1] SELECT * FROM `digital_person_info` WHERE dp_link = 'test_dp_1.mp4' and deleted = false ORDER BY `digital_person_info`.`id` LIMIT 1
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:90
+[1.136ms] [rows:1] UPDATE `digital_person_info` SET `dp_id`='test_dp_1.mp4',`dp_name`='test_dp_1',`dp_status`=0,`owner_id`='test_rliu',`published`=false,`audited`=false,`dp_content`='hello world',`cover_image_link`='test_dp_1.png',`dp_link`='test_dp_1.mp4',`deleted`=true,`hot_score`=0,`create_time`='2023-11-27 14:28:59',`update_time`='2023-11-27 14:28:58.978' WHERE `id` = 7
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.000ms] [rows:0] SELECT * FROM `digital_person_info` WHERE dp_link = 'test_dp_1.mp4' AND deleted = false
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.579ms] [rows:2] SELECT * FROM `digital_person_info` WHERE dp_status = 0 AND owner_id = 'test_admin' AND deleted = false
+
+2023/11/27 14:28:58 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.505ms] [rows:2] SELECT * FROM `digital_person_info` WHERE deleted = false LIMIT 2
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[31.086ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_1.mp4','test_dp_1',0,'test_rliu',false,false,'hello world','test_dp_1.png','test_dp_1.mp4',false,0,'2023-11-27 14:36:02.279','2023-11-27 14:36:02.279')
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[2.143ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_2.mp4','test_dp_2',0,'test_admin',false,false,'hello world','test_dp_2.png','test_dp_2.mp4',false,0,'2023-11-27 14:36:02.312','2023-11-27 14:36:02.312')
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[1.888ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_3.mp4','test_dp_3',0,'test_admin',false,false,'hello world','test_dp_3.png','test_dp_3.mp4',false,0,'2023-11-27 14:36:02.314','2023-11-27 14:36:02.314')
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[1.037ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_4.mp4','test_dp_4',1,'test_admin',false,false,'hello world','test_dp_4.png','test_dp_4.mp4',false,0,'2023-11-27 14:36:02.316','2023-11-27 14:36:02.316')
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[1.022ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_5.mp4','test_dp_5',2,'test_admin',false,false,'hello world','test_dp_5.png','test_dp_5.mp4',false,0,'2023-11-27 14:36:02.317','2023-11-27 14:36:02.317')
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:94
+[1.028ms] [rows:1] INSERT INTO `digital_person_info` (`dp_id`,`dp_name`,`dp_status`,`owner_id`,`published`,`audited`,`dp_content`,`cover_image_link`,`dp_link`,`deleted`,`hot_score`,`create_time`,`update_time`) VALUES ('test_dp_6.mp4','test_dp_6',3,'test_admin',false,false,'hello world','test_dp_6.png','test_dp_6.mp4',false,0,'2023-11-27 14:36:02.318','2023-11-27 14:36:02.318')
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.505ms] [rows:1] SELECT * FROM `digital_person_info` WHERE owner_id = 'test_rliu' AND deleted = false
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:83
+[0.000ms] [rows:1] SELECT * FROM `digital_person_info` WHERE dp_link = 'test_dp_1.mp4' and deleted = false ORDER BY `digital_person_info`.`id` LIMIT 1
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:90
+[2.213ms] [rows:1] UPDATE `digital_person_info` SET `dp_id`='test_dp_1.mp4',`dp_name`='test_dp_1',`dp_status`=0,`owner_id`='test_rliu',`published`=false,`audited`=false,`dp_content`='hello world',`cover_image_link`='test_dp_1.png',`dp_link`='test_dp_1.mp4',`deleted`=true,`hot_score`=0,`create_time`='2023-11-27 14:36:02',`update_time`='2023-11-27 14:36:02.321' WHERE `id` = 13
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.000ms] [rows:0] SELECT * FROM `digital_person_info` WHERE dp_link = 'test_dp_1.mp4' AND deleted = false
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.504ms] [rows:2] SELECT * FROM `digital_person_info` WHERE dp_status = 0 AND owner_id = 'test_admin' AND deleted = false
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.000ms] [rows:2] SELECT * FROM `digital_person_info` WHERE deleted = false LIMIT 2
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:75
+[1.292ms] [rows:0] UPDATE `digital_person_info` SET `dp_name`='testUpdate',`update_time`='2023-11-27 14:36:02.324' WHERE dp_link = 'test_dp_1.mp4' and deleted = false
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:75
+[1.485ms] [rows:1] UPDATE `digital_person_info` SET `dp_name`='testUpdate',`update_time`='2023-11-27 14:36:02.324' WHERE dp_link = 'test_dp_2.mp4' and deleted = false
+
+2023/11/27 14:36:02 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.000ms] [rows:1] SELECT * FROM `digital_person_info` WHERE dp_link = 'test_dp_2.mp4' AND deleted = false
+
+2023/11/27 14:46:14 c:/GoProject/fintech_practices/internal/dao/comm.go:27
+[5.299ms] [rows:1] SELECT count(*) FROM `digital_person_info` WHERE owner_id = 'test_admin'
+
+2023/11/27 14:48:15 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67 Error 1054 (42S22): Unknown column 'DpName' in 'order clause'
+[3.046ms] [rows:0] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY DpName desc
+
+2023/11/27 14:48:43 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[27.696ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name desc
+
+2023/11/27 14:51:40 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[25.558ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name desc
+
+2023/11/27 14:51:40 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.056ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name asc
+
+2023/11/27 14:52:11 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[26.272ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name desc
+
+2023/11/27 14:52:11 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.518ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name asc
+
+2023/11/27 14:53:09 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[27.366ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name desc
+
+2023/11/27 14:53:09 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.526ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name asc
+
+2023/11/27 14:53:43 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[24.819ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name desc
+
+2023/11/27 14:53:43 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.524ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name asc
+
+2023/11/27 14:55:20 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[29.953ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name desc
+
+2023/11/27 14:55:20 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.530ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name asc
+
+2023/11/27 14:56:38 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[25.979ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name desc
+
+2023/11/27 14:56:38 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.530ms] [rows:5] SELECT * FROM `digital_person_info` WHERE deleted = false ORDER BY dp_name asc
+
+2023/11/27 14:57:45 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[27.229ms] [rows:5] SELECT * FROM `digital_person_info` WHERE owner_id = 'test_admin' AND deleted = false ORDER BY dp_name desc
+
+2023/11/27 14:57:45 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.527ms] [rows:5] SELECT * FROM `digital_person_info` WHERE owner_id = 'test_admin' AND deleted = false ORDER BY dp_name asc
+
+2023/11/27 15:02:24 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[29.633ms] [rows:5] SELECT * FROM `digital_person_info` WHERE owner_id = 'test_admin' AND deleted = false ORDER BY dp_name desc
+
+2023/11/27 15:02:24 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[1.027ms] [rows:5] SELECT * FROM `digital_person_info` WHERE owner_id = 'test_admin' AND deleted = false ORDER BY dp_name asc
+
+2023/11/27 15:02:24 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[0.000ms] [rows:5] SELECT * FROM `digital_person_info` WHERE owner_id = 'test_admin' AND deleted = false ORDER BY dp_status, dp_name
+
+2023/11/27 15:25:24 c:/GoProject/fintech_practices/internal/dao/resource.go:84 Error 1054 (42S22): Unknown column 'dp_link' in 'field list'
+[10.106ms] [rows:0] INSERT INTO `metadata_market` (`resource_id`,`resource_describe`,`resource_link`,`resource_type`,`dp_link`,`cover_image_link`,`owner_id`,`deleted`,`create_time`,`update_time`) VALUES ('','hello world','test_image_1.png','image','','','test_admin',false,'2023-11-27 15:25:24.612','2023-11-27 15:25:24.612')
+
+2023/11/27 15:27:47 c:/GoProject/fintech_practices/internal/dao/resource.go:84 Error 1054 (42S22): Unknown column 'cover_image_link' in 'field list'
+[15.944ms] [rows:0] INSERT INTO `metadata_market` (`resource_id`,`resource_describe`,`resource_link`,`resource_type`,`dp_link`,`cover_image_link`,`owner_id`,`deleted`,`create_time`,`update_time`) VALUES ('','hello world','test_image_1.png','image','','','test_admin',false,'2023-11-27 15:27:47.646','2023-11-27 15:27:47.646')
+
+2023/11/27 15:29:08 c:/GoProject/fintech_practices/internal/dao/resource.go:84 Error 1054 (42S22): Unknown column 'deleted' in 'field list'
+[10.929ms] [rows:0] INSERT INTO `metadata_market` (`resource_id`,`resource_describe`,`resource_link`,`resource_type`,`dp_link`,`cover_image_link`,`owner_id`,`deleted`,`create_time`,`update_time`) VALUES ('','hello world','test_image_1.png','image','','','test_admin',false,'2023-11-27 15:29:08.189','2023-11-27 15:29:08.189')
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:84
+[38.589ms] [rows:1] INSERT INTO `metadata_market` (`resource_id`,`resource_describe`,`resource_link`,`resource_type`,`dp_link`,`cover_image_link`,`owner_id`,`deleted`,`create_time`,`update_time`) VALUES ('','hello world','test_image_1.png','image','','','test_admin',false,'2023-11-27 15:32:32.545','2023-11-27 15:32:32.545')
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:84
+[2.643ms] [rows:1] INSERT INTO `metadata_market` (`resource_id`,`resource_describe`,`resource_link`,`resource_type`,`dp_link`,`cover_image_link`,`owner_id`,`deleted`,`create_time`,`update_time`) VALUES ('','hello world','test_tone_1.wav','tone','','','test_admin',false,'2023-11-27 15:32:32.586','2023-11-27 15:32:32.586')
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:84
+[1.481ms] [rows:1] INSERT INTO `metadata_market` (`resource_id`,`resource_describe`,`resource_link`,`resource_type`,`dp_link`,`cover_image_link`,`owner_id`,`deleted`,`create_time`,`update_time`) VALUES ('','hello world','test_image_2.png','image','','','test_admin',false,'2023-11-27 15:32:32.589','2023-11-27 15:32:32.589')
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:84
+[1.384ms] [rows:1] INSERT INTO `metadata_market` (`resource_id`,`resource_describe`,`resource_link`,`resource_type`,`dp_link`,`cover_image_link`,`owner_id`,`deleted`,`create_time`,`update_time`) VALUES ('','hello world','test_tone_2.wav','tone','','','test_admin',false,'2023-11-27 15:32:32.591','2023-11-27 15:32:32.591')
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:84
+[1.037ms] [rows:1] INSERT INTO `metadata_market` (`resource_id`,`resource_describe`,`resource_link`,`resource_type`,`dp_link`,`cover_image_link`,`owner_id`,`deleted`,`create_time`,`update_time`) VALUES ('','hello world','test_image_3.png','image','','','test_admin',false,'2023-11-27 15:32:32.593','2023-11-27 15:32:32.593')
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:84
+[1.026ms] [rows:1] INSERT INTO `metadata_market` (`resource_id`,`resource_describe`,`resource_link`,`resource_type`,`dp_link`,`cover_image_link`,`owner_id`,`deleted`,`create_time`,`update_time`) VALUES ('','hello world','test_tone_3.wav','tone','','','test_admin',false,'2023-11-27 15:32:32.594','2023-11-27 15:32:32.594')
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[0.504ms] [rows:1] SELECT * FROM `metadata_market` WHERE resource_type = 'image' AND resource_link = 'test_image_1.png' AND deleted = false
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:74
+[0.000ms] [rows:1] SELECT * FROM `metadata_market` WHERE resource_link = 'test_image_2.png' and deleted = false ORDER BY `metadata_market`.`id` LIMIT 1
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:80
+[1.372ms] [rows:1] UPDATE `metadata_market` SET `resource_id`='',`resource_describe`='hello world',`resource_link`='test_image_2.png',`resource_type`='image',`dp_link`='',`cover_image_link`='',`owner_id`='test_admin',`deleted`=true,`create_time`='2023-11-27 15:32:33',`update_time`='2023-11-27 15:32:32.596' WHERE `id` = 3
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[0.000ms] [rows:0] SELECT * FROM `metadata_market` WHERE resource_link = 'test_image_2.png' AND deleted = false
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[0.505ms] [rows:2] SELECT * FROM `metadata_market` WHERE resource_type = 'tone' AND deleted = false LIMIT 2
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:66
+[2.333ms] [rows:1] UPDATE `metadata_market` SET `resource_describe`='updateTest',`update_time`='2023-11-27 15:32:32.598' WHERE resource_link = 'test_tone_1.wav' and deleted = false
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[0.714ms] [rows:1] SELECT * FROM `metadata_market` WHERE resource_link = 'test_tone_1.wav' AND deleted = false
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:66
+[1.049ms] [rows:1] UPDATE `metadata_market` SET `resource_describe`='updateTest',`update_time`='2023-11-27 15:32:32.602' WHERE resource_link = 'test_tone_2.wav' and deleted = false
+
+2023/11/27 15:32:32 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[0.506ms] [rows:1] SELECT * FROM `metadata_market` WHERE resource_link = 'test_tone_2.wav' AND deleted = false
+
+2023/11/27 17:30:19 c:/GoProject/fintech_practices/internal/dao/user.go:37 record not found
+[12.983ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = 'test_admin1' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 17:30:19 c:/GoProject/fintech_practices/internal/dao/user.go:16 record not found
+[0.700ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = 'test_admin3' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 17:30:19 c:/GoProject/fintech_practices/internal/dao/user.go:16 record not found
+[0.000ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = 'test_admin1' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 17:31:33 c:/GoProject/fintech_practices/internal/dao/user.go:45
+[34.614ms] [rows:1] INSERT INTO `user_info` (`uni_account`,`user_name`,`password`,`create_time`,`update_time`) VALUES ('test_admin1','test1','123456','2023-11-27 17:31:33.808','2023-11-27 17:31:33.808')
+
+2023/11/27 17:31:33 c:/GoProject/fintech_practices/internal/dao/user.go:45
+[2.047ms] [rows:1] INSERT INTO `user_info` (`uni_account`,`user_name`,`password`,`create_time`,`update_time`) VALUES ('test_admin2','test2','123456','2023-11-27 17:31:33.846','2023-11-27 17:31:33.846')
+
+2023/11/27 17:31:33 c:/GoProject/fintech_practices/internal/dao/user.go:37
+[0.855ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin1' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 17:31:33 c:/GoProject/fintech_practices/internal/dao/user.go:16 record not found
+[0.000ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = 'test_admin3' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 17:31:33 c:/GoProject/fintech_practices/internal/dao/user.go:16
+[0.505ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin1' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 17:31:33 c:/GoProject/fintech_practices/internal/dao/user.go:37
+[0.522ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin2' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 17:31:33 c:/GoProject/fintech_practices/internal/dao/user.go:16 record not found
+[0.546ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = 'test_admin3' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 17:31:33 c:/GoProject/fintech_practices/internal/dao/user.go:16
+[0.000ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin1' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 17:31:33 c:/GoProject/fintech_practices/internal/dao/user.go:51
+[1.667ms] [rows:1] UPDATE `user_info` SET `user_name`='testUpdate',`update_time`='2023-11-27 17:31:33.852' WHERE uni_account = 'test_admin2'
+
+2023/11/27 17:31:33 c:/GoProject/fintech_practices/internal/dao/user.go:37
+[0.000ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin2' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 20:33:57 c:/GoProject/fintech_practices/internal/dao/user.go:16 record not found
+[15.289ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = '' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 20:33:57 c:/GoProject/fintech_practices/internal/dao/user.go:16 record not found
+[3.491ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = '' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 20:42:01 c:/GoProject/fintech_practices/internal/dao/user.go:16 record not found
+[6.976ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = '' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 20:43:59 c:/GoProject/fintech_practices/internal/dao/user.go:16 record not found
+[4.589ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = '' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 20:47:07 c:/GoProject/fintech_practices/internal/dao/user.go:16 record not found
+[6.469ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = '' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 20:58:03 c:/GoProject/fintech_practices/internal/dao/user.go:16 record not found
+[3.726ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = 'admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 20:58:03 c:/GoProject/fintech_practices/internal/dao/user.go:45
+[23.552ms] [rows:1] INSERT INTO `user_info` (`uni_account`,`user_name`,`password`,`create_time`,`update_time`) VALUES ('admin','admin','8793fc46ca45540ca923f29ba7f9302d','2023-11-27 20:58:03.142','2023-11-27 20:58:03.142')
+
+2023/11/27 21:08:50 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[52.757ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:09:53 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[82.169ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:16:56 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[63.183ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:16:56 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[16.142ms] [rows:0] SELECT * FROM `digital_person_info` WHERE owner_id = 'admin' AND audited = true AND deleted = false ORDER BY create_time desc LIMIT 10
+
+2023/11/27 21:18:31 c:/GoProject/fintech_practices/internal/dao/user.go:16 record not found
+[4.021ms] [rows:0] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:18:32 c:/GoProject/fintech_practices/internal/dao/user.go:45
+[17.859ms] [rows:1] INSERT INTO `user_info` (`uni_account`,`user_name`,`password`,`create_time`,`update_time`) VALUES ('test_admin','test_admin','8793fc46ca45540ca923f29ba7f9302d','2023-11-27 21:18:32.043','2023-11-27 21:18:32.043')
+
+2023/11/27 21:20:54 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[42.241ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:20:54 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[3.996ms] [rows:0] SELECT * FROM `digital_person_info` WHERE owner_id = 'test_admin' AND audited = true AND deleted = false ORDER BY create_time desc LIMIT 10
+
+2023/11/27 21:21:19 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[59.077ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:24:38 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[43.998ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:24:38 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[5.238ms] [rows:5] SELECT * FROM `digital_person_info` WHERE owner_id = 'test_admin' AND audited = true AND deleted = false ORDER BY create_time desc LIMIT 10
+
+2023/11/27 21:25:49 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[40.194ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:25:49 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[4.720ms] [rows:5] SELECT * FROM `digital_person_info` WHERE owner_id = 'test_admin' AND audited = true AND deleted = false ORDER BY create_time desc LIMIT 10
+
+2023/11/27 21:26:11 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[90.192ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:26:11 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:67
+[5.444ms] [rows:5] SELECT * FROM `digital_person_info` WHERE owner_id = 'test_admin' AND audited = true AND deleted = false ORDER BY create_time desc LIMIT 10
+
+2023/11/27 21:39:26 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[85.975ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:41:12 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[42.235ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:41:12 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[3.772ms] [rows:3] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'tone' AND deleted = false LIMIT 10
+
+2023/11/27 21:41:12 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[51.352ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:41:12 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[3.670ms] [rows:3] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'tone' AND deleted = false LIMIT 10
+
+2023/11/27 21:44:06 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[55.070ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:44:06 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[3.105ms] [rows:3] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'tone' AND deleted = false LIMIT 10
+
+2023/11/27 21:44:06 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[1.637ms] [rows:2] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'image' AND deleted = false LIMIT 10
+
+2023/11/27 21:47:00 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[61.664ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:47:00 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[2.297ms] [rows:3] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'tone' AND deleted = false LIMIT 10
+
+2023/11/27 21:47:00 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[1.236ms] [rows:2] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'image' AND deleted = false LIMIT 10
+
+2023/11/27 21:56:54 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[140.588ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:56:54 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[3.268ms] [rows:2] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'tone' AND deleted = false LIMIT 2
+
+2023/11/27 21:56:54 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[1.194ms] [rows:1] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'image' AND deleted = false LIMIT 1
+
+2023/11/27 21:57:28 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[55.584ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:57:28 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[6.029ms] [rows:2] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'tone' AND deleted = false LIMIT 2
+
+2023/11/27 21:57:28 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[1.211ms] [rows:1] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'image' AND deleted = false LIMIT 1
+
+2023/11/27 21:58:28 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[55.569ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 21:58:28 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[3.688ms] [rows:2] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'tone' AND deleted = false LIMIT 2
+
+2023/11/27 21:58:28 c:/GoProject/fintech_practices/internal/dao/resource.go:58
+[1.058ms] [rows:1] SELECT * FROM `metadata_market` WHERE owner_id = 'test_admin' AND resource_type = 'image' AND deleted = false LIMIT 1
+
+2023/11/27 22:08:30 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[36.103ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 22:08:30 c:/GoProject/fintech_practices/internal/dao/resource.go:74
+[2.537ms] [rows:1] SELECT * FROM `metadata_market` WHERE resource_link = 'test_image_1.png' and deleted = false ORDER BY `metadata_market`.`id` LIMIT 1
+
+2023/11/27 22:08:30 c:/GoProject/fintech_practices/internal/dao/resource.go:80
+[40.277ms] [rows:1] UPDATE `metadata_market` SET `resource_id`='',`resource_describe`='hello world',`resource_link`='test_image_1.png',`resource_type`='image',`dp_link`='',`cover_image_link`='',`owner_id`='test_admin',`deleted`=true,`create_time`='2023-11-27 15:32:33',`update_time`='2023-11-27 22:08:30.027' WHERE `id` = 1
+
+2023/11/27 22:08:30 c:/GoProject/fintech_practices/internal/dao/resource.go:74 record not found
+[0.510ms] [rows:0] SELECT * FROM `metadata_market` WHERE resource_link = 'test_tone_1.png' and deleted = false ORDER BY `metadata_market`.`id` LIMIT 1
+
+2023/11/27 22:08:30 c:/GoProject/fintech_practices/internal/dao/resource.go:74 record not found
+[0.528ms] [rows:0] SELECT * FROM `metadata_market` WHERE resource_link = 'test_image_111.png' and deleted = false ORDER BY `metadata_market`.`id` LIMIT 1
+
+2023/11/27 22:09:15 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[35.627ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 22:09:15 c:/GoProject/fintech_practices/internal/dao/resource.go:74 record not found
+[1.650ms] [rows:0] SELECT * FROM `metadata_market` WHERE resource_link = 'test_image_1.png' and deleted = false ORDER BY `metadata_market`.`id` LIMIT 1
+
+2023/11/27 22:09:15 c:/GoProject/fintech_practices/internal/dao/resource.go:74
+[0.538ms] [rows:1] SELECT * FROM `metadata_market` WHERE resource_link = 'test_tone_1.wav' and deleted = false ORDER BY `metadata_market`.`id` LIMIT 1
+
+2023/11/27 22:09:15 c:/GoProject/fintech_practices/internal/dao/resource.go:80
+[34.279ms] [rows:1] UPDATE `metadata_market` SET `resource_id`='',`resource_describe`='updateTest',`resource_link`='test_tone_1.wav',`resource_type`='tone',`dp_link`='',`cover_image_link`='',`owner_id`='test_admin',`deleted`=true,`create_time`='2023-11-27 15:32:33',`update_time`='2023-11-27 22:09:15.069' WHERE `id` = 2
+
+2023/11/27 22:09:15 c:/GoProject/fintech_practices/internal/dao/resource.go:74 record not found
+[3.035ms] [rows:0] SELECT * FROM `metadata_market` WHERE resource_link = 'test_image_111.png' and deleted = false ORDER BY `metadata_market`.`id` LIMIT 1
+
+2023/11/27 22:10:32 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[34.507ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 22:10:32 c:/GoProject/fintech_practices/internal/dao/resource.go:74
+[0.509ms] [rows:1] SELECT * FROM `metadata_market` WHERE resource_link = 'test_image_1.png' and deleted = false ORDER BY `metadata_market`.`id` LIMIT 1
+
+2023/11/27 22:10:32 c:/GoProject/fintech_practices/internal/dao/resource.go:80
+[1.591ms] [rows:1] UPDATE `metadata_market` SET `resource_id`='',`resource_describe`='hello world',`resource_link`='test_image_1.png',`resource_type`='image',`dp_link`='',`cover_image_link`='',`owner_id`='test_admin',`deleted`=true,`create_time`='2023-11-27 15:32:33',`update_time`='2023-11-27 22:10:32.036' WHERE `id` = 1
+
+2023/11/27 22:10:32 c:/GoProject/fintech_practices/internal/dao/resource.go:74
+[0.525ms] [rows:1] SELECT * FROM `metadata_market` WHERE resource_link = 'test_tone_1.wav' and deleted = false ORDER BY `metadata_market`.`id` LIMIT 1
+
+2023/11/27 22:10:32 c:/GoProject/fintech_practices/internal/dao/resource.go:80
+[1.575ms] [rows:1] UPDATE `metadata_market` SET `resource_id`='',`resource_describe`='updateTest',`resource_link`='test_tone_1.wav',`resource_type`='tone',`dp_link`='',`cover_image_link`='',`owner_id`='test_admin',`deleted`=true,`create_time`='2023-11-27 15:32:33',`update_time`='2023-11-27 22:10:32.038' WHERE `id` = 2
+
+2023/11/27 22:10:32 c:/GoProject/fintech_practices/internal/dao/resource.go:74 record not found
+[0.524ms] [rows:0] SELECT * FROM `metadata_market` WHERE resource_link = 'test_image_111.png' and deleted = false ORDER BY `metadata_market`.`id` LIMIT 1
+
+2023/11/27 22:13:20 c:/GoProject/fintech_practices/internal/dao/user.go:28
+[27.076ms] [rows:1] SELECT * FROM `user_info` WHERE uni_account = 'test_admin' ORDER BY `user_info`.`id` LIMIT 1
+
+2023/11/27 22:13:20 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:83
+[7.038ms] [rows:1] SELECT * FROM `digital_person_info` WHERE dp_link = 'test_dp_3.mp4' and deleted = false ORDER BY `digital_person_info`.`id` LIMIT 1
+
+2023/11/27 22:13:20 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:90
+[2.107ms] [rows:1] UPDATE `digital_person_info` SET `dp_id`='test_dp_3.mp4',`dp_name`='test_dp_3',`dp_status`=0,`owner_id`='test_admin',`published`=false,`audited`=true,`dp_content`='hello world',`cover_image_link`='test_dp_3.png',`dp_link`='test_dp_3.mp4',`deleted`=true,`hot_score`=0,`create_time`='2023-11-27 14:36:02',`update_time`='2023-11-27 22:13:20.299' WHERE `id` = 15
+
+2023/11/27 22:13:20 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:83
+[1.066ms] [rows:1] SELECT * FROM `digital_person_info` WHERE dp_link = 'test_dp_4.mp4' and deleted = false ORDER BY `digital_person_info`.`id` LIMIT 1
+
+2023/11/27 22:13:20 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:90
+[1.739ms] [rows:1] UPDATE `digital_person_info` SET `dp_id`='test_dp_4.mp4',`dp_name`='test_dp_4',`dp_status`=1,`owner_id`='test_admin',`published`=false,`audited`=true,`dp_content`='hello world',`cover_image_link`='test_dp_4.png',`dp_link`='test_dp_4.mp4',`deleted`=true,`hot_score`=0,`create_time`='2023-11-27 14:36:02',`update_time`='2023-11-27 22:13:20.303' WHERE `id` = 16
+
+2023/11/27 22:13:20 c:/GoProject/fintech_practices/internal/dao/digitalperson.go:83 record not found
+[0.511ms] [rows:0] SELECT * FROM `digital_person_info` WHERE dp_link = 'test_dp_2.mp4' and deleted = false ORDER BY `digital_person_info`.`id` LIMIT 1
