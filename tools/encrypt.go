@@ -6,7 +6,7 @@ import (
 	"crypto/rsa"
 	"crypto/sha256"
 	"crypto/x509"
-	"encoding/hex"
+	"encoding/base64"
 	"encoding/pem"
 	"fmt"
 )
@@ -14,6 +14,7 @@ import (
 var priKey *rsa.PrivateKey
 var pubKey *rsa.PublicKey
 var pubKeyString string
+var priKeyString string
 
 func InitPubKey() {
 	var err error
@@ -24,12 +25,18 @@ func InitPubKey() {
 
 	pubKey = &priKey.PublicKey
 	pubBytes := x509.MarshalPKCS1PublicKey(pubKey)
-	pubBlock := pem.Block{Type: "PUBLIC KEY", Bytes: pubBytes}
-	pubKeyString = string(pem.EncodeToMemory(&pubBlock))
+	priBytes := x509.MarshalPKCS1PrivateKey(priKey)
+	pubKeyString = string(pem.EncodeToMemory(
+		&pem.Block{Type: "RSA PUBLIC KEY", Bytes: pubBytes},
+	))
+	priKeyString = string(pem.EncodeToMemory(
+		&pem.Block{Type: "RSA PRIVATE KEY", Bytes: priBytes},
+	))
 }
 
 func Decrypt(encryptCtx string) ([]byte, error) {
-	msg, err := hex.DecodeString(encryptCtx)
+	//msg, err := hex.DecodeString(encryptCtx)
+	msg, err := base64.StdEncoding.DecodeString(encryptCtx)
 	if err != nil {
 		return nil, fmt.Errorf("hex.DecodeString err: %s", err.Error())
 	}
@@ -55,18 +62,15 @@ func GetPubKey() string {
 func TestEncrypt() {
 	InitPubKey()
 
+	fmt.Println(pubKeyString)
+	fmt.Println(priKeyString)
 	encryptedTxt, err := Encrypt("cc-fintech-practices")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	xSlice := fmt.Sprintf("%x", encryptedTxt)
-	bSlice := fmt.Sprintf("%b", encryptedTxt)
-	fmt.Println(GetPubKey())
-	fmt.Println(encryptedTxt)
-	fmt.Println(xSlice)
-	fmt.Println(bSlice)
-
-	decryptedTxt, err := Decrypt(xSlice)
+	msg := base64.StdEncoding.EncodeToString(encryptedTxt)
+	fmt.Println(msg)
+	decryptedTxt, err := Decrypt(msg)
 	if err != nil {
 		panic(err.Error())
 	}

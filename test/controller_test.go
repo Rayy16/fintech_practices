@@ -2,6 +2,7 @@ package test
 
 import (
 	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"fintechpractices/global"
 	Init "fintechpractices/init"
@@ -59,7 +60,7 @@ func TestRegister(t *testing.T) {
 	body, err := json.Marshal(schema.RegisterReq{
 		UserName:    "test_admin",
 		UserAccount: "test_admin",
-		DecryptData: fmt.Sprintf("%x", bSlice),
+		DecryptData: base64.StdEncoding.EncodeToString(bSlice),
 	})
 	if err != nil {
 		t.Error(err.Error())
@@ -92,7 +93,7 @@ func requestForLogin(t *testing.T) (token string) {
 	}
 	body, err := json.Marshal(schema.AuthReq{
 		UserAccount: "test_admin",
-		DecryptData: fmt.Sprintf("%x", bSlice),
+		DecryptData: base64.StdEncoding.EncodeToString(bSlice),
 	})
 
 	if err != nil {
