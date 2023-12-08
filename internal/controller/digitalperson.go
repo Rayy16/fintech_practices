@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"errors"
 	"fintechpractices/global"
 	"fintechpractices/internal/dao"
 	"fintechpractices/internal/schema"
@@ -10,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 var (
@@ -36,6 +34,7 @@ func GetDpHandler(c *gin.Context) {
 		OrderField: OrderCreateTime.String(),
 	}
 	if err := c.ShouldBind(&req); err != nil {
+		log.Errorf("c.ShouldBind error: %s", err.Error())
 		c.JSON(http.StatusOK, gin.H{
 			"msg":  fmt.Sprintf("binding query param err: %s", err.Error()),
 			"code": global.REQUEST_PARAMS_ERROR,
@@ -64,7 +63,7 @@ func GetDpHandler(c *gin.Context) {
 	raw, _ := c.Get("user_account")
 	userAccount, _ := raw.(string)
 
-	dps, err := dao.GetDigitalPersonsBy(
+	dps, cnt, err := dao.GetDigitalPersonsBy(
 		dao.OwnerBy(userAccount), dao.AuditedBy(true), dao.OrderBy(field+method), dao.PageBy(req.PageNo, req.PageSize),
 	)
 
@@ -72,16 +71,15 @@ func GetDpHandler(c *gin.Context) {
 	resp.CommResp = schema.DefaultCommResp
 
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			resp.Msg = "record not found"
-		} else {
-			log.Errorf("dao.GetDigitalPersonBy err: %s", err.Error())
-			resp.Msg = fmt.Sprintf("get digital person err: %s", err.Error())
-			resp.Code = global.DAO_LAYER_ERROR
-		}
-
+		log.Errorf("dao.GetDigitalPersonBy err: %s", err.Error())
+		resp.Msg = fmt.Sprintf("get digital person err: %s", err.Error())
+		resp.Code = global.DAO_LAYER_ERROR
 		c.JSON(http.StatusOK, resp)
 		return
+	}
+
+	if cnt == 0 {
+		resp.Msg = "record not found"
 	}
 
 	resp.Data = make([]schema.DpEntity, 0, len(dps))

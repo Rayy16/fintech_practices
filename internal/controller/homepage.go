@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"errors"
 	"fintechpractices/global"
 	"fintechpractices/internal/dao"
 	"fintechpractices/internal/schema"
@@ -9,7 +8,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 // /hotvedio/pageNo=?&pageSize=?
@@ -24,24 +22,24 @@ func HotVedioHandler(c *gin.Context) {
 		return
 	}
 
-	dps, err := dao.GetDigitalPersonsBy(dao.StatusBy(dao.StatusSuccess), dao.PublishedBy(true), dao.AuditedBy(true),
+	dps, cnt, err := dao.GetDigitalPersonsBy(dao.StatusBy(dao.StatusSuccess), dao.PublishedBy(true), dao.AuditedBy(true),
 		dao.OrderBy("hot_score desc"), dao.OrderBy("create_time"), dao.PageBy(req.PageNo, req.PageSize))
 
 	var resp schema.GetDpResp
 	resp.CommResp = schema.DefaultCommResp
 
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			resp.Msg = "record not found"
-		} else {
-			log.Errorf("dao.GetDigitalPersonBy err: %s", err.Error())
-			resp.Msg = fmt.Sprintf("get hot vedio err: %s", err.Error())
-			resp.Code = global.DAO_LAYER_ERROR
-		}
+		log.Errorf("dao.GetDigitalPersonBy err: %s", err.Error())
+		resp.Msg = fmt.Sprintf("get hot vedio err: %s", err.Error())
+		resp.Code = global.DAO_LAYER_ERROR
 
 		c.JSON(http.StatusOK, resp)
 		return
 	}
+	if cnt == 0 {
+		resp.Msg = "record not found"
+	}
+
 	resp.Data = make([]schema.DpEntity, 0, len(dps))
 	for i := range dps {
 		var owner string = dps[i].OwnerId

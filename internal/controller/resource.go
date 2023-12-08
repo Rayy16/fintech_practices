@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"errors"
 	"fintechpractices/global"
 	"fintechpractices/internal/dao"
 	"fintechpractices/internal/schema"
@@ -10,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 // /resource/:resource_type/page_no=?&page_size=?&is_public=?
@@ -35,6 +33,7 @@ func GetResourceHandler(c *gin.Context) {
 		IsPublic: false,
 	}
 	if err := c.ShouldBind(&req); err != nil {
+		log.Errorf("c.ShouldBind error: %s", err.Error())
 		c.JSON(http.StatusOK, gin.H{
 			"msg":  fmt.Sprintf("binding query param err: %s", err.Error()),
 			"code": global.REQUEST_PARAMS_ERROR,
@@ -47,7 +46,7 @@ func GetResourceHandler(c *gin.Context) {
 	if req.IsPublic {
 		userAccount = global.PublicAccount
 	}
-	rs, err := dao.GetResourceBy(
+	rs, cnt, err := dao.GetResourceBy(
 		dao.OwnerBy(userAccount), dao.TypeBy(resourceType), dao.PageBy(req.PageNo, req.PageSize),
 	)
 
@@ -55,18 +54,15 @@ func GetResourceHandler(c *gin.Context) {
 	resp.CommResp = schema.DefaultCommResp
 
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			resp.Msg = "record not found"
-		} else {
-			log.Errorf("dao.GetResourceBy err: %s", err.Error())
-			resp.Msg = fmt.Sprintf("get resource err: %s", err.Error())
-			resp.Code = global.DAO_LAYER_ERROR
-		}
-
+		log.Errorf("dao.GetResourceBy err: %s", err.Error())
+		resp.Msg = fmt.Sprintf("get resource err: %s", err.Error())
+		resp.Code = global.DAO_LAYER_ERROR
 		c.JSON(http.StatusOK, resp)
 		return
 	}
-
+	if cnt == 0 {
+		resp.Msg = "record not found"
+	}
 	resp.Data = make([]schema.ResourceEntity, 0, len(rs))
 	for i := range rs {
 		var cImageLink string = rs[i].ResourceLink

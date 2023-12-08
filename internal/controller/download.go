@@ -5,7 +5,6 @@ import (
 	"fintechpractices/global"
 	"fintechpractices/internal/dao"
 	"fintechpractices/internal/model"
-	"fintechpractices/internal/schema"
 	"fmt"
 	"net/http"
 	"path"
@@ -82,6 +81,5 @@ func DownloadHandler(c *gin.Context) {
 
 	rootDir := global.RootDirMap[fileTypeStr]
 	filepath := path.Join(rootDir, fileName)
-	c.JSON(http.StatusOK, schema.DefaultCommResp)
 	c.File(filepath)
 }
