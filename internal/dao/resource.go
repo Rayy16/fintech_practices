@@ -48,16 +48,23 @@ func ResourceLinkBy(rsLink string) func(*gorm.DB) *gorm.DB {
 	}
 }
 
-func GetResourceBy(Options ...func(*gorm.DB) *gorm.DB) ([]model.MetadataMarket, error) {
+func GetResourceBy(Options ...func(*gorm.DB) *gorm.DB) ([]model.MetadataMarket, int64, error) {
 	db := global.DB
 	for _, option := range Options {
 		db = option(db)
 	}
 
 	var res []model.MetadataMarket
-	err := db.Where("deleted = false").Find(&res).Error
-
-	return res, err
+	var cnt int64
+	err := db.Where("deleted = false").Find(&res).Count(&cnt).Error
+	if err == nil {
+		return res, cnt, nil
+	}
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return res, 0, nil
+	} else {
+		return res, -1, err
+	}
 }
 
 func UpdateResourceByLink(link string, dict map[string]interface{}) error {

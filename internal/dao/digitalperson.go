@@ -1,6 +1,7 @@
 package dao
 
 import (
+	"errors"
 	"fintechpractices/global"
 	"fintechpractices/internal/model"
 
@@ -58,15 +59,23 @@ func AuditedBy(audited bool) func(*gorm.DB) *gorm.DB {
 	}
 }
 
-func GetDigitalPersonsBy(Options ...func(*gorm.DB) *gorm.DB) ([]model.DigitalPersonInfo, error) {
+func GetDigitalPersonsBy(Options ...func(*gorm.DB) *gorm.DB) ([]model.DigitalPersonInfo, int64, error) {
 	db := global.DB
 	for _, option := range Options {
 		db = option(db)
 	}
 	var res []model.DigitalPersonInfo
-	err := db.Where("deleted = false").Find(&res).Error
+	var cnt int64
+	err := db.Where("deleted = false").Find(&res).Count(&cnt).Error
+	if err == nil {
+		return res, cnt, nil
+	}
 
-	return res, err
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return res, 0, nil
+	} else {
+		return res, -1, err
+	}
 }
 
 func UpdateDigitalPersonByLink(link string, dict map[string]interface{}) error {
