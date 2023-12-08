@@ -23,7 +23,7 @@ log:
 
 server:
   host: 127.0.0.1
-  port: 33322
+  port: 8080
   engine_mode: debug
   dp_root_dir: C:\GoProject\fintech_practices\files\dp
   resource_root_dir: C:\GoProject\fintech_practices\files\resource
