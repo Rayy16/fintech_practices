@@ -14,24 +14,35 @@ import (
 	"fintechpractices/tools"
 )
 
+// AuthHandler godoc
+// @Summary 登录接口
+// @Schemes
+// @Description 登录以获取token
+// @Tags user
+// @Accept json
+// @Param user_account body schema.AuthReq true "用户账号与加密的用户密码"
+// @Produce json
+// @Success 200 {object} schema.AuthResp
+// @Router /login [post]
 func AuthHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	var user schema.AuthReq
+	var resp schema.AuthResp
+	resp.CommResp = schema.DefaultCommResp
 	err := c.ShouldBind(&user)
 	if err != nil {
 		log.Errorf("c.ShouldBind error: %v", err)
-		c.JSON(http.StatusOK, gin.H{
-			"msg":  fmt.Sprintf("invalid params: %s", err.Error()),
-			"code": global.REQUEST_PARAMS_ERROR,
-		})
+		resp.Msg = fmt.Sprintf("invalid params: %s", err.Error())
+		resp.Code = global.REQUEST_PARAMS_ERROR
+		c.JSON(http.StatusOK, resp)
+		return
 	}
 	password, err := tools.Decrypt(user.DecryptData)
 	if err != nil {
 		log.Errorf("tools.Decrypt error: %s", err.Error())
-		c.JSON(http.StatusOK, gin.H{
-			"msg":  fmt.Sprintf("decrtpt err: %s", err.Error()),
-			"code": global.DECRYPT_DATA_ERROR,
-		})
+		resp.Msg = fmt.Sprintf("decrtpt err: %s", err.Error())
+		resp.Code = global.DECRYPT_DATA_ERROR
+		c.JSON(http.StatusOK, resp)
 		return
 	}
 
@@ -39,25 +50,20 @@ func AuthHandler(c *gin.Context) {
 	md5Pw := tools.GenMD5WithSalt(string(password), tools.Salt)
 	if ok, err := dao.ComparePassword(user.UserAccount, md5Pw); err != nil {
 		log.Errorf("dao.ComparePassword error: %s", err.Error)
-		c.JSON(http.StatusOK, gin.H{
-			"msg":  fmt.Sprintf("authorized error: %s", err.Error()),
-			"code": global.DAO_LAYER_ERROR,
-		})
+		resp.Msg = fmt.Sprintf("authorized error: %s", err.Error())
+		resp.Code = global.DAO_LAYER_ERROR
+		c.JSON(http.StatusOK, resp)
 		return
 	} else if !ok {
-		c.JSON(http.StatusOK, gin.H{
-			"msg":  "invalid user password",
-			"code": global.INVALID_PASSWORD_ERROR,
-		})
+		resp.Msg = "invalid user password"
+		resp.Code = global.INVALID_PASSWORD_ERROR
+		c.JSON(http.StatusOK, resp)
 		return
 	}
 
 	tokenString, _ := tools.GenToken(user.UserAccount)
-	c.JSON(http.StatusOK, gin.H{
-		"msg":   "success",
-		"code":  global.SUCCESS,
-		"token": tokenString,
-	})
+	resp.Token = tokenString
+	c.JSON(http.StatusOK, resp)
 }
 
 func GetAuthMiddleware() func(*gin.Context) {

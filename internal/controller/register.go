@@ -12,7 +12,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterController(c *gin.Context) {
+// RegisterHandler godoc
+// @Summary 注册用户接口
+// @Description 注册用户
+// @schema http
+// @Tags user
+// @Accept json
+// @Produce json
+// @Param user_name body schema.RegisterReq true "用户名称、用户账户与加密的用户密码"
+// @Success 200 {object} schema.CommResp
+// @Router /register [post]
+func RegisterHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	var req schema.RegisterReq
 	resp := schema.DefaultCommResp

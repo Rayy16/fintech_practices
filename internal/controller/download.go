@@ -27,7 +27,18 @@ var (
 	FtypeResource   = fileType{"resource"}
 )
 
-// /dp/demo.mp4; /cover_image/demo.png; /resource/demo.wav; /resource/demo.png
+// DownloadHandler godoc
+// @Summary 下载文件接口
+// @Schemes
+// @Description 下载文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载
+// @Tags download
+// @Accept json
+// @Param file_type path string true "下载的文件类型"
+// @Param file_name path string true "下载的文件名称"
+// @Param Authorization header string true "token"
+// @Produce */*
+// @Success 200 {file} file
+// @Router /{file_type}/{file_name} [get]
 func DownloadHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	fileTypeStr := c.Param("file_type")

@@ -11,7 +11,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// /resource/:resource_type/page_no=?&page_size=?&is_public=?
+// GetResourceHandler godoc
+// @Summary 查询素材库接口
+// @Schemes
+// @Description 查询用户所拥有的 or 公共的素材库素材信息
+// @Tags resource lib
+// @Accept json
+// @Produce json
+// @Param resource_type path string true "素材类型，tone or image"
+// @Param page_no query int false "分页查询页数，默认为1"
+// @Param page_size query int false "分页查询页大小，默认为10"
+// @Param is_public query boolean false "是否查询公共素材，默认为否"
+// @Param Authorization header string true "token"
+// @Success 200 {object} schema.GetResourceResp
+// @Router /resource/{resource_type} [get]
 func GetResourceHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 
@@ -82,7 +95,17 @@ func GetResourceHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
-// /resource/:resource_link
+// DeleteResourceHandler godoc
+// @Summary 删除素材库素材接口
+// @Schemes
+// @Description 删除用户所拥有的素材库素材
+// @Tags resource lib
+// @Accept json
+// @Produce json
+// @Param resource_link path string true "素材连接，tone or image"
+// @Param Authorization header string true "token"
+// @Success 200 {object} schema.CommResp
+// @Router /resource/{resource_link} [delete]
 func DeleteResourceHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	rsLink := c.Param("resource_link")

@@ -25,7 +25,20 @@ func (o orderField) String() string {
 	return o.t
 }
 
-// /dp/page_no=?&page_size=?order_field=?method=?
+// GetDpHandler godoc
+// @Summary 查询数字人接口
+// @Schemes
+// @Description 查询用户所拥有的数字人信息
+// @Tags digital person
+// @Accept json
+// @Produce json
+// @Param page_no query int false "分页查询页数，默认为1"
+// @Param page_size query int false "分页查询页大小，默认为10"
+// @Param order_field query string false "查询返回的排序字段，默认为创建时间"
+// @Param method query string false "排序方式，默认为倒序"
+// @Param Authorization header string true "token"
+// @Success 200 {object} schema.GetDpResp
+// @Router /dp [get]
 func GetDpHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 
@@ -97,7 +110,18 @@ func GetDpHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
-// /dp/:dp_link
+// DeleteDpHandler godoc
+//
+// @Summary 删除数字人接口
+// @Schemes
+// @Description 删除用户所拥有的数字人信息
+// @Tags digital person
+// @Accept json
+// @Produce json
+// @Param dp_link path string true "需删除的数字人id"
+// @Param Authorization header string true "token"
+// @Success 200 {object} schema.CommResp
+// @Router /dp/{dp_link} [delete]
 func DeleteDpHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	dpLink := c.Param("dp_link")

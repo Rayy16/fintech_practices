@@ -18,3 +18,13 @@ type PageParams struct {
 	PageNo   int `json:"page_no" form:"page_no"`
 	PageSize int `json:"page_size" form:"page_size"`
 }
+
+type PubKeyResp struct {
+	CommResp
+	Data string `json:"data" form:"data"`
+}
+
+type AuthResp struct {
+	CommResp
+	Token string `json:"token" form:"token"`
+}
