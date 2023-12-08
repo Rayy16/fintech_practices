@@ -77,26 +77,26 @@ func TestDigitalPersonCRUD(t *testing.T) {
 		}
 	}
 
-	if rows, err := dao.GetDigitalPersonsBy(dao.OwnerBy("test_rliu")); err != nil {
+	if rows, _, err := dao.GetDigitalPersonsBy(dao.OwnerBy("test_rliu")); err != nil {
 		t.Error(err.Error())
 	} else if len(rows) != 1 {
 		t.Error("get dp by owner failed, beacuse we can't get dp which owned by rliu")
 	}
 
 	dao.DeleteDigitalPersonByLink("test_dp_1.mp4")
-	if rows, err := dao.GetDigitalPersonsBy(dao.DpLinkBy("test_dp_1.mp4")); err != nil {
+	if rows, _, err := dao.GetDigitalPersonsBy(dao.DpLinkBy("test_dp_1.mp4")); err != nil {
 		t.Error(err.Error())
 	} else if len(rows) != 0 {
 		t.Error("delete by link failed, because we get dp by link")
 	}
 
-	if rows, err := dao.GetDigitalPersonsBy(dao.StatusBy(dao.StatusCreatable), dao.OwnerBy("test_admin")); err != nil {
+	if rows, _, err := dao.GetDigitalPersonsBy(dao.StatusBy(dao.StatusCreatable), dao.OwnerBy("test_admin")); err != nil {
 		t.Error(err.Error())
 	} else if len(rows) != 2 {
 		t.Errorf("filter error, expected 2 rows, but we got %d", len(rows))
 	}
 
-	if rows, err := dao.GetDigitalPersonsBy(dao.PageBy(1, 2)); err != nil {
+	if rows, _, err := dao.GetDigitalPersonsBy(dao.PageBy(1, 2)); err != nil {
 		t.Error(err.Error())
 	} else if len(rows) != 2 {
 		t.Errorf("filter error, expected 2 rows, but we got %d", len(rows))
@@ -109,7 +109,7 @@ func TestDigitalPersonCRUD(t *testing.T) {
 	if err := dao.UpdateDigitalPersonByLink("test_dp_2.mp4", map[string]interface{}{"DpName": "testUpdate"}); err != nil {
 		t.Error(err.Error())
 	} else {
-		rows, _ := dao.GetDigitalPersonsBy(dao.DpLinkBy("test_dp_2.mp4"))
+		rows, _, _ := dao.GetDigitalPersonsBy(dao.DpLinkBy("test_dp_2.mp4"))
 		if rows[0].DpName != "testUpdate" {
 			t.Error("update dp failed")
 		}
@@ -128,11 +128,11 @@ func TestCount(t *testing.T) {
 
 func TestOrder(t *testing.T) {
 	Init.Initialization()
-	rows1, err := dao.GetDigitalPersonsBy(dao.OwnerBy("test_admin"), dao.OrderBy("dp_name desc"))
+	rows1, _, err := dao.GetDigitalPersonsBy(dao.OwnerBy("test_admin"), dao.OrderBy("dp_name desc"))
 	if err != nil {
 		t.Error(err.Error())
 	}
-	rows2, err := dao.GetDigitalPersonsBy(dao.OwnerBy("test_admin"), dao.OrderBy("dp_name asc"))
+	rows2, _, err := dao.GetDigitalPersonsBy(dao.OwnerBy("test_admin"), dao.OrderBy("dp_name asc"))
 	if err != nil {
 		t.Error(err.Error())
 	}
@@ -143,7 +143,7 @@ func TestOrder(t *testing.T) {
 		}
 	}
 
-	rows3, err := dao.GetDigitalPersonsBy(dao.OwnerBy("test_admin"), dao.OrderBy("dp_status, dp_name"))
+	rows3, _, err := dao.GetDigitalPersonsBy(dao.OwnerBy("test_admin"), dao.OrderBy("dp_status, dp_name"))
 	if err != nil {
 		t.Error(err.Error())
 	}

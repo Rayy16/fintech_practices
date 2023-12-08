@@ -11,6 +11,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
+	"strings"
 	"testing"
 )
 
@@ -401,4 +403,39 @@ func TestDeleteResource(t *testing.T) {
 		}
 		fmt.Printf("%#v\n", res)
 	}
+}
+
+func TestDownloadFile(t *testing.T) {
+	Start()
+	token := requestForLogin(t)
+	req, err := http.NewRequest(
+		http.MethodGet,
+		prefix+"/dp/test_dp_5.mp4",
+		nil,
+	)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	req.Header.Set("Authorization", "Bearer "+token)
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	defer resp.Body.Close()
+
+	if !strings.Contains(resp.Header.Get("Content-Type"), "video/mp4") {
+		b, _ := io.ReadAll(resp.Body)
+		fmt.Println(string(b))
+		t.Errorf("expect  content-type is video/mpeg4 but got: %v", resp.Header.Get("Content-Type"))
+	}
+
+	f, _ := os.Create("C:\\GoProject\\fintech_practices\\test\\test_dp_5.mp4")
+	defer f.Close()
+
+	_, err = io.Copy(f, resp.Body)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	fmt.Println("download done")
 }

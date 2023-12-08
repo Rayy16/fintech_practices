@@ -60,20 +60,20 @@ func TestResourceCRUD(t *testing.T) {
 		}
 	}
 
-	if rows, err := dao.GetResourceBy(dao.TypeBy(dao.TypeImage), dao.ResourceLinkBy("test_image_1.png")); err != nil {
+	if rows, _, err := dao.GetResourceBy(dao.TypeBy(dao.TypeImage), dao.ResourceLinkBy("test_image_1.png")); err != nil {
 		t.Error(err.Error())
 	} else if len(rows) != 1 {
 		t.Error("get resource by type and link failed")
 	}
 
 	dao.DeleteResourceByLink("test_image_2.png")
-	if rows, err := dao.GetResourceBy(dao.ResourceLinkBy("test_image_2.png")); err != nil {
+	if rows, _, err := dao.GetResourceBy(dao.ResourceLinkBy("test_image_2.png")); err != nil {
 		t.Error(err.Error())
 	} else if len(rows) != 0 {
 		t.Error("delete resource by link failed")
 	}
 
-	if rows, err := dao.GetResourceBy(dao.TypeBy(dao.TypeTone), dao.PageBy(1, 2)); err != nil {
+	if rows, _, err := dao.GetResourceBy(dao.TypeBy(dao.TypeTone), dao.PageBy(1, 2)); err != nil {
 		t.Error(err.Error())
 	} else if len(rows) != 2 {
 		t.Errorf("filter error, expected 2 rows, but we got %d", len(rows))
@@ -82,7 +82,7 @@ func TestResourceCRUD(t *testing.T) {
 	if err := dao.UpdateResourceByLink("test_tone_1.wav", map[string]interface{}{"resource_describe": "updateTest"}); err != nil {
 		t.Error(err.Error())
 	} else {
-		rows, _ := dao.GetResourceBy(dao.ResourceLinkBy("test_tone_1.wav"))
+		rows, _, _ := dao.GetResourceBy(dao.ResourceLinkBy("test_tone_1.wav"))
 		if rows[0].ResourceDescribe != "updateTest" {
 			t.Error("update resource failed")
 		}
@@ -91,7 +91,7 @@ func TestResourceCRUD(t *testing.T) {
 	if err := dao.UpdateResourceByLink("test_tone_2.wav", map[string]interface{}{"resource_describe": "updateTest"}); err != nil {
 		t.Error(err.Error())
 	} else {
-		rows, _ := dao.GetResourceBy(dao.ResourceLinkBy("test_tone_2.wav"))
+		rows, _, _ := dao.GetResourceBy(dao.ResourceLinkBy("test_tone_2.wav"))
 		if rows[0].ResourceDescribe != "updateTest" {
 			t.Error("update resource failed")
 		}
