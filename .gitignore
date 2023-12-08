@@ -3,3 +3,4 @@ files/
 pkg/SadTalker/
 pkg/MockingBird/
 logs/
+logs/db.log
