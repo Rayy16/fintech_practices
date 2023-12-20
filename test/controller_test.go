@@ -89,13 +89,13 @@ func TestRegister(t *testing.T) {
 }
 
 func requestForLogin(t *testing.T) (token string) {
-	bSlice, err := tools.Encrypt("ccpractices")
-	if err != nil {
-		t.Error(err.Error())
-	}
+	// bSlice, err := tools.Encrypt("ccpractices")
+	// if err != nil {
+	// t.Error(err.Error())
+	// }
 	body, err := json.Marshal(schema.AuthReq{
 		UserAccount: "test_admin",
-		DecryptData: base64.StdEncoding.EncodeToString(bSlice),
+		DecryptData: "cc_123456",
 	})
 
 	if err != nil {
@@ -124,6 +124,43 @@ func requestForLogin(t *testing.T) (token string) {
 	_ = json.Unmarshal(b, &dict)
 	return dict["token"].(string)
 }
+
+// func requestForLogin(t *testing.T) (token string) {
+// 	bSlice, err := tools.Encrypt("ccpractices")
+// 	if err != nil {
+// 		t.Error(err.Error())
+// 	}
+// 	body, err := json.Marshal(schema.AuthReq{
+// 		UserAccount: "test_admin",
+// 		DecryptData: base64.StdEncoding.EncodeToString(bSlice),
+// 	})
+
+// 	if err != nil {
+// 		t.Error(err.Error())
+// 	}
+
+// 	req, err := http.NewRequest(
+// 		http.MethodPost,
+// 		prefix+"/login",
+// 		bytes.NewReader(body),
+// 	)
+// 	if err != nil {
+// 		t.Error(err.Error())
+// 	}
+// 	req.Header.Set("Content-Type", "application/json")
+
+// 	resp, err := http.DefaultClient.Do(req)
+// 	if err != nil {
+// 		t.Error(err.Error())
+// 	}
+// 	defer resp.Body.Close()
+
+// 	b, _ := io.ReadAll(resp.Body)
+
+// 	dict := map[string]interface{}{}
+// 	_ = json.Unmarshal(b, &dict)
+// 	return dict["token"].(string)
+// }
 
 func TestLogin(t *testing.T) {
 	Start()

@@ -37,7 +37,13 @@ func AuthHandler(c *gin.Context) {
 		c.JSON(http.StatusOK, resp)
 		return
 	}
-	password, err := tools.Decrypt(user.DecryptData)
+	log.Infof("parans: %+v user: %+v", c.Params, user)
+	// ===== 改成明文传输密码 =====
+
+	password, err := user.DecryptData, nil
+	// password, err := tools.Decrypt(user.DecryptData)
+
+	// ===========================
 	if err != nil {
 		log.Errorf("tools.Decrypt error: %s", err.Error())
 		resp.Msg = fmt.Sprintf("decrtpt err: %s", err.Error())
@@ -49,7 +55,7 @@ func AuthHandler(c *gin.Context) {
 	// query account & password and check them
 	md5Pw := tools.GenMD5WithSalt(string(password), tools.Salt)
 	if ok, err := dao.ComparePassword(user.UserAccount, md5Pw); err != nil {
-		log.Errorf("dao.ComparePassword error: %s", err.Error)
+		log.Errorf("dao.ComparePassword error: %s", err.Error())
 		resp.Msg = fmt.Sprintf("authorized error: %s", err.Error())
 		resp.Code = global.DAO_LAYER_ERROR
 		c.JSON(http.StatusOK, resp)

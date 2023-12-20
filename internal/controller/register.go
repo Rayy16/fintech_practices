@@ -50,7 +50,13 @@ func RegisterHandler(c *gin.Context) {
 	}
 
 	var user model.UserInfo
-	password, err := tools.Decrypt(req.DecryptData)
+	// ===== 改成明文传输密码 =====
+	var password string
+	var err error
+	password, err = req.DecryptData, nil
+	// password, err := tools.Decrypt(req.DecryptData)
+
+	// ===========================
 	if err != nil {
 		log.Errorf("tools.Decrypt err: %s", err.Error())
 		resp.Msg = fmt.Sprintf("decrypt data err: %s", err.Error())

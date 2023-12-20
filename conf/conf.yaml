@@ -1,7 +1,7 @@
 database:
   host: localhost
   port: 3306
-  user: root
+  user: cc
   password: 123456
   database: fintech_practices
   log_to_file: true
@@ -14,7 +14,7 @@ database:
 log:
   filename: runtime.log
   level: info
-  dir: C:\GoProject\fintech_practices\logs
+  dir: C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\logs
   line_no: true
   format: json
   max_backups: 7
@@ -25,6 +25,6 @@ server:
   host: 127.0.0.1
   port: 8080
   engine_mode: debug
-  dp_root_dir: C:\GoProject\fintech_practices\files\dp
-  resource_root_dir: C:\GoProject\fintech_practices\files\resource
-  cover_image_root_dir: C:\GoProject\fintech_practices\files\cover_image
+  dp_root_dir: C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\files\dp
+  resource_root_dir: C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\files\resource
+  cover_image_root_dir: C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\files\cover_image

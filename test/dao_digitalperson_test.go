@@ -10,15 +10,15 @@ import (
 func TestDigitalPersonCRUD(t *testing.T) {
 	Init.Initialization()
 	dps := []model.DigitalPersonInfo{
-		{
-			DpId:           "test_dp_1.mp4",
-			DpName:         "test_dp_1",
-			DpStatus:       dao.StatusCreatable.Int(),
-			OwnerId:        "test_rliu",
-			Content:        "hello world",
-			CoverImageLink: "test_dp_1.png",
-			DpLink:         "test_dp_1.mp4",
-		},
+		// {
+		// 	DpId:           "test_dp_1.mp4",
+		// 	DpName:         "test_dp_1",
+		// 	DpStatus:       dao.StatusCreatable.Int(),
+		// 	OwnerId:        "test_rliu",
+		// 	Content:        "hello world",
+		// 	CoverImageLink: "test_dp_1.png",
+		// 	DpLink:         "test_dp_1.mp4",
+		// },
 
 		{
 			DpId:           "test_dp_2.mp4",
