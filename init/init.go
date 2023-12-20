@@ -13,4 +13,5 @@ func Initialization() {
 	global.Log = InitZapLog()
 	global.DB = InitMySQLGorm()
 	global.Engine = InitServer()
+	global.TaskMgr = InitTaskMgr()
 }

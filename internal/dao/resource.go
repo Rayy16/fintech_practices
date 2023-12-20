@@ -9,27 +9,6 @@ import (
 	"gorm.io/gorm"
 )
 
-type resourceType struct {
-	t string
-}
-
-func (r resourceType) String() string {
-	return r.t
-}
-
-func NewResourceType(t string) (resourceType, error) {
-	if t == "image" || t == "tone" {
-		return resourceType{t: t}, nil
-	}
-	return resourceType{t: "unknown"}, errors.New("unknown resource type")
-}
-
-var (
-	TypeUnknown = resourceType{"unknown"}
-	TypeImage   = resourceType{"image"}
-	TypeTone    = resourceType{"tone"}
-)
-
 func BelongTo(dpID string) func(*gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 		return db.Where("dp_id = ?", dpID)

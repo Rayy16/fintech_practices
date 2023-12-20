@@ -4,24 +4,19 @@ import (
 	"errors"
 	"fintechpractices/global"
 	"fintechpractices/internal/model"
+	"fmt"
 
 	"gorm.io/gorm"
 )
 
-type dpStatus struct {
-	code int
+func NewDPStatus(code int) (*dpStatus, error) {
+	switch code {
+	case StatusCreatable.Int(), StatusCreating.Int(), StatusSuccess.Int(), StatusFailed.Int():
+		return &dpStatus{code: code}, nil
+	default:
+		return nil, fmt.Errorf("unknown status code: %d", code)
+	}
 }
-
-func (d dpStatus) Int() int {
-	return d.code
-}
-
-var (
-	StatusCreatable = dpStatus{0}
-	StatusCreating  = dpStatus{1}
-	StatusSuccess   = dpStatus{2}
-	StatusFailed    = dpStatus{3}
-)
 
 func StatusBy(status dpStatus) func(*gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
@@ -83,6 +78,10 @@ func UpdateDigitalPersonByLink(link string, dict map[string]interface{}) error {
 		Where("dp_link = ? and deleted = false", link).
 		Updates(dict).
 		Error
+}
+
+func UpdateDPStatusByLink(link string, status dpStatus) error {
+	return UpdateDigitalPersonByLink(link, map[string]interface{}{"dp_status": status.code})
 }
 
 func DeleteDigitalPersonByLink(link string) error {
