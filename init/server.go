@@ -27,6 +27,9 @@ func InitServer() *gin.Engine {
 }
 
 func registerHandler(engine *gin.Engine) {
+	engine.Use(controller.GetCrosMiddleware())
+	engine.Use(controller.GetLogParamsMiddleware())
+
 	engine.GET("/pubkey", controller.PubKeyHandler)
 	engine.POST("/register", controller.RegisterHandler)
 	engine.POST("/login", controller.AuthHandler)

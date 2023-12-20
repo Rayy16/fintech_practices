@@ -37,7 +37,10 @@ func AuthHandler(c *gin.Context) {
 		c.JSON(http.StatusOK, resp)
 		return
 	}
-	password, err := tools.Decrypt(user.DecryptData)
+	// ===== 明文传输密码 =====
+	// password, err := tools.Decrypt(user.DecryptData)
+	password, err := user.DecryptData, nil
+	// =======================
 	if err != nil {
 		log.Errorf("tools.Decrypt error: %s", err.Error())
 		resp.Msg = fmt.Sprintf("decrtpt err: %s", err.Error())
