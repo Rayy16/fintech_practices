@@ -27,6 +27,12 @@ func ResourceLinkBy(rsLink string) func(*gorm.DB) *gorm.DB {
 	}
 }
 
+func IsReady() func(*gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Where("is_ready = true")
+	}
+}
+
 func GetResourceBy(Options ...func(*gorm.DB) *gorm.DB) ([]model.MetadataMarket, int64, error) {
 	db := global.DB
 	for _, option := range Options {

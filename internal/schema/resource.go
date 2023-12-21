@@ -12,6 +12,17 @@ type GetResourceResp struct {
 	Data []ResourceEntity `json:"data"`
 }
 
+type CreateResourceReq struct {
+	ResourceDescribe string `json:"resource_describe" binding:"required"`
+	ResourceType     string `json:"resource_type" binding:"required"`
+	IsPng            bool   `json:"is_png"`
+}
+
+type CreateResourceResp struct {
+	CommResp
+	ResourceLink string `json:"resource_link"`
+}
+
 type ResourceEntity struct {
 	ResouceId        string     `json:"resouce_id"`
 	ResourceDescribe string     `json:"resource_describe"`

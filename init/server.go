@@ -17,6 +17,7 @@ func InitServer() *gin.Engine {
 	global.RootDirMap[controller.FtypeDp.String()] = global.AppCfg.ServerCfg.DpRootDir
 	global.RootDirMap[controller.FtypeCoverImage.String()] = global.AppCfg.ServerCfg.CoverImageRootDir
 	global.RootDirMap[controller.FtypeResource.String()] = global.AppCfg.ServerCfg.ResourceRootDir
+	global.RootDirMap[controller.FtypeAudio.String()] = global.AppCfg.ServerCfg.AudioRootDir
 
 	tools.InitPubKey()
 	engine := gin.Default()
@@ -49,6 +50,12 @@ func registerHandler(engine *gin.Engine) {
 		authGroup.GET("/resource/:resource_type", controller.GetResourceHandler)
 
 		authGroup.DELETE("/resource/:resource_link", controller.DeleteResourceHandler)
+
+		authGroup.POST("/dp", controller.CreateDpHandler)
+
+		authGroup.POST("/resource", controller.CreateResourceHandler)
+
+		authGroup.POST("/:file_type/:file_name", controller.UploadHandler)
 	}
 
 }

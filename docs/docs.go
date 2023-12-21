@@ -78,6 +78,45 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "description": "创建用户数字人信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "digital person"
+                ],
+                "summary": "创建数字人接口",
+                "parameters": [
+                    {
+                        "description": "数字人名称、形象link、音频link、音色link、文本内容。如传输音频link，则音色link与文本内容可为空字符串。如音频link为空字符串，则后二者必须传输",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schema.CreateDpReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schema.CommResp"
+                        }
+                    }
+                }
             }
         },
         "/dp/{dp_link}": {
@@ -192,7 +231,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "用户名称、用户账户与加密的用户密码",
-                        "name": "user_name",
+                        "name": "req",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -205,6 +244,47 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/schema.CommResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/resource": {
+            "post": {
+                "description": "创建用户素材库素材",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "resource lib"
+                ],
+                "summary": "创建素材库素材接口",
+                "parameters": [
+                    {
+                        "description": "素材描述、素材类型(tone、image)， IsPng(如果是image类型，是否是图片形象素材)",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schema.CreateResourceReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schema.CreateResourceResp"
                         }
                     }
                 }
@@ -322,7 +402,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "下载的文件类型",
+                        "description": "下载的文件类型, 类型为枚举值：dp、resource、cover_image",
                         "name": "file_type",
                         "in": "path",
                         "required": true
@@ -350,12 +430,67 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "description": "上传文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "tags": [
+                    "download"
+                ],
+                "summary": "上传文件接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "上传的文件类型，类型为枚举值：audio、resource",
+                        "name": "file_type",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "上传的文件名称，需要带上相应后缀，例如audio为.wav, resource为 .png 或 .mp4",
+                        "name": "file_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "上传的文件",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schema.CommResp"
+                        }
+                    }
+                }
             }
         }
     },
     "definitions": {
         "schema.AuthReq": {
             "type": "object",
+            "required": [
+                "decrypt_data",
+                "user_account"
+            ],
             "properties": {
                 "decrypt_data": {
                     "type": "string"
@@ -390,6 +525,65 @@ const docTemplate = `{
                 }
             }
         },
+        "schema.CreateDpReq": {
+            "type": "object",
+            "required": [
+                "audio_link",
+                "content",
+                "dp_name",
+                "image_link",
+                "tone_link"
+            ],
+            "properties": {
+                "audio_link": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "dp_name": {
+                    "type": "string"
+                },
+                "image_link": {
+                    "type": "string"
+                },
+                "tone_link": {
+                    "type": "string"
+                }
+            }
+        },
+        "schema.CreateResourceReq": {
+            "type": "object",
+            "required": [
+                "resource_describe",
+                "resource_type"
+            ],
+            "properties": {
+                "is_png": {
+                    "type": "boolean"
+                },
+                "resource_describe": {
+                    "type": "string"
+                },
+                "resource_type": {
+                    "type": "string"
+                }
+            }
+        },
+        "schema.CreateResourceResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "msg": {
+                    "type": "string"
+                },
+                "resource_link": {
+                    "type": "string"
+                }
+            }
+        },
         "schema.DpEntity": {
             "type": "object",
             "properties": {
@@ -404,6 +598,9 @@ const docTemplate = `{
                 },
                 "dp_name": {
                     "type": "string"
+                },
+                "dp_status": {
+                    "type": "integer"
                 },
                 "hot_score": {
                     "type": "integer"
@@ -466,6 +663,11 @@ const docTemplate = `{
         },
         "schema.RegisterReq": {
             "type": "object",
+            "required": [
+                "decrypt_data",
+                "user_account",
+                "user_name"
+            ],
             "properties": {
                 "decrypt_data": {
                     "type": "string"

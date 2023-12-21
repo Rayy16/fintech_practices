@@ -3,10 +3,16 @@ package controller
 import (
 	"fintechpractices/global"
 	"fintechpractices/internal/dao"
+	"fintechpractices/internal/model"
 	"fintechpractices/internal/schema"
+	"fintechpractices/internal/task"
+	"fintechpractices/internal/task/types"
+	"fintechpractices/tools"
 	"fmt"
 	"net/http"
+	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -77,7 +83,7 @@ func GetDpHandler(c *gin.Context) {
 	userAccount, _ := raw.(string)
 
 	dps, cnt, err := dao.GetDigitalPersonsBy(
-		dao.OwnerBy(userAccount), dao.AuditedBy(true), dao.OrderBy(field+method), dao.PageBy(req.PageNo, req.PageSize),
+		dao.OwnerBy(userAccount), dao.OrderBy(field+method), dao.PageBy(req.PageNo, req.PageSize),
 	)
 
 	var resp schema.GetDpResp
@@ -103,6 +109,7 @@ func GetDpHandler(c *gin.Context) {
 			DpLink:         dps[i].DpLink,
 			CoverImageLink: dps[i].CoverImageLink,
 			HotScore:       dps[i].HotScore,
+			DpStatus:       dps[i].DpStatus,
 			CreateTime:     dps[i].CreateTime,
 			UpdateTime:     dps[i].UpdateTime,
 		})
@@ -134,5 +141,99 @@ func DeleteDpHandler(c *gin.Context) {
 		resp.Code = global.DAO_LAYER_ERROR
 	}
 
+	c.JSON(http.StatusOK, resp)
+}
+
+// CreateDpHandler godoc
+// @Summary 创建数字人接口
+// @Schemes
+// @Description 创建用户数字人信息
+// @Tags digital person
+// @Accept json
+// @Produce json
+// @Param req body schema.CreateDpReq true "数字人名称、形象link、音频link、音色link、文本内容。如传输音频link，则音色link与文本内容可为空字符串。如音频link为空字符串，则后二者必须传输"
+// @Param Authorization header string true "token"
+// @Success 200 {object} schema.CommResp
+// @Router /dp [post]
+func CreateDpHandler(c *gin.Context) {
+	log := global.Log.Sugar()
+	var req schema.CreateDpReq
+	var resp = schema.DefaultCommResp
+
+	if err := c.ShouldBind(&req); err != nil {
+		log.Errorf("c.ShouldBind err: %s", err.Error())
+		resp.Code = global.REQUEST_PARAMS_ERROR
+		resp.Msg = fmt.Sprintf("binding body params error: %s", err.Error())
+		c.JSON(http.StatusOK, resp)
+		return
+	}
+
+	// 判断是否需要调用模型生成Audio
+	args := make([]types.TaskArgs, 0)
+	var dpLink string
+	var coverImageLink string
+	if req.AudioLink == "" {
+		req.AudioLink = tools.GenMD5(req.Content+req.ToneLink) + ".wav"
+		args = append(args, types.AudioArgs{
+			TextInput: req.Content,
+			ToneInput: filepath.Join(global.RootDirMap[FtypeResource.String()], req.ImageLink),
+			OutputDir: global.RootDirMap[FtypeAudio.String()],
+			FileName:  req.AudioLink,
+		})
+	}
+	raw, _ := c.Get("user_account")
+	userAccount, _ := raw.(string)
+	dpLink = tools.GenMD5(userAccount+req.ImageLink+req.AudioLink) + ".mp4"
+	coverImageLink = tools.GenMD5(dpLink+"_cover_image") + ".png"
+	args = append(args, types.DpArgs{
+		AudioInput: filepath.Join(global.RootDirMap[FtypeAudio.String()], req.AudioLink),
+		ImageInput: filepath.Join(global.RootDirMap[FtypeResource.String()], req.ImageLink),
+		OutputDir:  global.RootDirMap[FtypeDp.String()],
+		FileName:   dpLink,
+	})
+	dp := &model.DigitalPersonInfo{
+		DpId:           dpLink,
+		DpName:         req.DpName,
+		DpStatus:       dao.StatusCreatable.Int(),
+		OwnerId:        userAccount,
+		Published:      true,
+		Audited:        true,
+		Content:        req.Content,
+		CoverImageLink: coverImageLink,
+		DpLink:         dpLink,
+	}
+	err := dao.CreateDigitalPerson(dp)
+	if err != nil {
+		resp.Code = global.DAO_LAYER_ERROR
+		resp.Msg = fmt.Sprintf("create dp err: %s", err.Error())
+		log.Errorf("dao.CreateDigitalPerson err: %s", err.Error())
+		c.JSON(http.StatusOK, resp)
+		return
+	}
+
+	global.TaskMgr.RegisterTask(dpLink, args...)
+	go func() {
+		for {
+			raw, _ := global.TaskMgr.QueryTask(dpLink)
+			info, _ := raw.(task.TaskInfo)
+			switch info.Status {
+			case dao.StatusFailed.Int():
+				dao.UpdateDPStatusByLink(dpLink, dao.StatusFailed)
+				log.Errorf("dp <%s> create failed: %s", dpLink, info.Msg)
+				return
+			case dao.StatusSuccess.Int():
+				dpPath := filepath.Join(global.RootDirMap[FtypeDp.String()], dpLink)
+				coverImagePath := filepath.Join(global.RootDirMap[FtypeCoverImage.String()], coverImageLink)
+				err := tools.ExtractVedioToImage(dpPath, coverImagePath)
+				if err != nil {
+					log.Errorf("failed to tract dp <%s> cover image: %s", dpLink, err.Error())
+				}
+				dao.UpdateDPStatusByLink(dpLink, dao.StatusSuccess)
+				log.Infof("dp <%s> create success", dpLink)
+			default:
+				time.Sleep(time.Second)
+			}
+		}
+	}()
 	c.JSON(http.StatusOK, resp)
 }

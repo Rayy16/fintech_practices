@@ -3,10 +3,13 @@ package controller
 import (
 	"fintechpractices/global"
 	"fintechpractices/internal/dao"
+	"fintechpractices/internal/model"
 	"fintechpractices/internal/schema"
+	"fintechpractices/tools"
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -60,7 +63,7 @@ func GetResourceHandler(c *gin.Context) {
 		userAccount = global.PublicAccount
 	}
 	rs, cnt, err := dao.GetResourceBy(
-		dao.OwnerBy(userAccount), dao.TypeBy(resourceType), dao.PageBy(req.PageNo, req.PageSize),
+		dao.OwnerBy(userAccount), dao.IsReady(), dao.TypeBy(resourceType), dao.PageBy(req.PageNo, req.PageSize),
 	)
 
 	var resp schema.GetResourceResp
@@ -117,5 +120,77 @@ func DeleteResourceHandler(c *gin.Context) {
 		resp.Msg = fmt.Sprintf("delete resource err: %s", err.Error())
 		resp.Code = global.DAO_LAYER_ERROR
 	}
+	c.JSON(http.StatusOK, resp)
+}
+
+// CreateResourceHandler godoc
+// @Summary 创建素材库素材接口
+// @Schemes
+// @Description 创建用户素材库素材
+// @Tags resource lib
+// @Accept json
+// @Produce json
+// @Param req body schema.CreateResourceReq true "素材描述、素材类型(tone、image)， IsPng(如果是image类型，是否是图片形象素材)"
+// @Param Authorization header string true "token"
+// @Success 200 {object} schema.CreateResourceResp
+// @Router /resource [post]
+func CreateResourceHandler(c *gin.Context) {
+	log := global.Log.Sugar()
+	var req schema.CreateResourceReq
+	var resp schema.CreateResourceResp
+	resp.CommResp = schema.DefaultCommResp
+
+	if err := c.ShouldBind(&req); err != nil {
+		log.Errorf("c.ShouldBind err: %s", err.Error())
+		resp.Code = global.REQUEST_PARAMS_ERROR
+		resp.Msg = fmt.Sprintf("binding body params err: %s", err.Error())
+		c.JSON(http.StatusOK, resp)
+		return
+	}
+
+	var suffix string
+	var resourceLink string
+	var CoverImageLink string
+
+	raw, _ := c.Get("user_account")
+	userAccount, _ := raw.(string)
+	md5Str := userAccount + req.ResourceDescribe + req.ResourceType + fmt.Sprintf("%v", time.Now())
+	rawResourceLink := tools.GenMD5(md5Str)
+
+	// 校验素材类型
+	switch req.ResourceType {
+	case dao.TypeImage.String():
+		if req.IsPng {
+			suffix = ".png"
+			break
+		}
+		// 如果是视频形象素材，就需要生成封面link
+		suffix = ".mp4"
+		CoverImageLink = tools.GenMD5(rawResourceLink+"_cover_image") + ".png"
+	case dao.TypeTone.String():
+		suffix = ".wav"
+	default:
+		resp.Code = global.REQUEST_PARAMS_ERROR
+		resp.Msg = fmt.Sprintf("invalid resource type %s", req.ResourceType)
+		c.JSON(http.StatusOK, resp)
+		return
+	}
+	resourceLink = rawResourceLink + suffix
+	resource := &model.MetadataMarket{
+		ResourceId:       resourceLink,
+		ResourceDescribe: req.ResourceDescribe,
+		ResourceLink:     resourceLink,
+		ResourceType:     req.ResourceType,
+		CoverImageLink:   CoverImageLink,
+		OwnerId:          userAccount,
+		IsReady:          false,
+	}
+	log.Infof("create resource %+v", resource)
+	err := dao.CreateMetadataMarket(resource)
+	if err != nil {
+		resp.Msg = fmt.Sprintf("create resource err: %s", err.Error())
+		resp.Code = global.DAO_LAYER_ERROR
+	}
+	resp.ResourceLink = resourceLink
 	c.JSON(http.StatusOK, resp)
 }
