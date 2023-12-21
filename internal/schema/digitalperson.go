@@ -23,3 +23,11 @@ type GetDpResp struct {
 	CommResp
 	Data []DpEntity `json:"data"`
 }
+
+type CreateDpReq struct {
+	DpName    string `json:"dp_name" binding:"required"`
+	ImageLink string `json:"image_link" binding:"required"`
+	AudioLink string `json:"audio_link" binding:"required"`
+	ToneLink  string `json:"tone_link" binding:"required"`
+	Content   string `json:"content" binding:"required"`
+}
