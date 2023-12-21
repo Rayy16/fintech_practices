@@ -17,6 +17,7 @@ func InitServer() *gin.Engine {
 	global.RootDirMap[controller.FtypeDp.String()] = global.AppCfg.ServerCfg.DpRootDir
 	global.RootDirMap[controller.FtypeCoverImage.String()] = global.AppCfg.ServerCfg.CoverImageRootDir
 	global.RootDirMap[controller.FtypeResource.String()] = global.AppCfg.ServerCfg.ResourceRootDir
+	global.RootDirMap[controller.FtypeAudio.String()] = global.AppCfg.ServerCfg.AudioRootDir
 
 	tools.InitPubKey()
 	engine := gin.Default()

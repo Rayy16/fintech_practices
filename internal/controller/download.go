@@ -24,6 +24,7 @@ var (
 	FtypeDp         = fileType{"dp"}
 	FtypeCoverImage = fileType{"cover_image"}
 	FtypeResource   = fileType{"resource"}
+	FtypeAudio      = fileType{"audio"}
 )
 
 // DownloadHandler godoc

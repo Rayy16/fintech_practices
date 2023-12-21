@@ -7,4 +7,5 @@ type ServerConfig struct {
 	DpRootDir         string `mapstructure:"dp_root_dir" yaml:"dp_root_dir"`
 	ResourceRootDir   string `mapstructure:"resource_root_dir" yaml:"resource_root_dir"`
 	CoverImageRootDir string `mapstructure:"cover_image_root_dir" yaml:"cover_image_root_dir"`
+	AudioRootDir      string `mapstructure:"audio_root_dir" yaml:"audio_root_dir"`
 }
