@@ -82,6 +82,6 @@ type TaskExcutorIntf interface {
 type TaskManagerIntf interface {
 	Start()
 	RegisterTask(taskId string, taskArgsSli ...TaskArgs) error
-	RangeTasks() TaskExcutorIntf
-	UpdateTask(taskId string, status int)
+	UpdateTask(taskId string, data interface{})
+	QueryTask(taskId string) (interface{}, bool)
 }
