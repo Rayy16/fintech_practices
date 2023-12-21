@@ -50,6 +50,12 @@ func registerHandler(engine *gin.Engine) {
 		authGroup.GET("/resource/:resource_type", controller.GetResourceHandler)
 
 		authGroup.DELETE("/resource/:resource_link", controller.DeleteResourceHandler)
+
+		authGroup.POST("/dp", controller.CreateDpHandler)
+
+		authGroup.POST("/resource", controller.CreateResourceHandler)
+
+		authGroup.POST("/:file_type/:file_name", controller.UploadHandler)
 	}
 
 }

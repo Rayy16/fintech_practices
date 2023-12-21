@@ -144,6 +144,17 @@ func DeleteDpHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
+// CreateDpHandler godoc
+// @Summary 创建数字人接口
+// @Schemes
+// @Description 创建用户数字人信息
+// @Tags digital person
+// @Accept json
+// @Produce json
+// @Param req body schema.CreateDpReq true "数字人名称、形象link、音频link、音色link、文本内容。如传输音频link，则音色link与文本内容可为空字符串。如音频link为空字符串，则后二者必须传输"
+// @Param Authorization header string true "token"
+// @Success 200 {object} schema.CommResp
+// @Router /dp [post]
 func CreateDpHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	var req schema.CreateDpReq

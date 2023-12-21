@@ -33,7 +33,7 @@ var (
 // @Description 下载文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载
 // @Tags download
 // @Accept json
-// @Param file_type path string true "下载的文件类型"
+// @Param file_type path string true "下载的文件类型, 类型为枚举值：dp、resource、cover_image"
 // @Param file_name path string true "下载的文件名称"
 // @Param Authorization header string true "token"
 // @Produce */*

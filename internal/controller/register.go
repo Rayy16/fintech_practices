@@ -19,7 +19,7 @@ import (
 // @Tags user
 // @Accept json
 // @Produce json
-// @Param user_name body schema.RegisterReq true "用户名称、用户账户与加密的用户密码"
+// @Param req body schema.RegisterReq true "用户名称、用户账户与加密的用户密码"
 // @Success 200 {object} schema.CommResp
 // @Router /register [post]
 func RegisterHandler(c *gin.Context) {

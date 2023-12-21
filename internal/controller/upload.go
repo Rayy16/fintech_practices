@@ -14,6 +14,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// UploadHandler godoc
+// @Summary 上传文件接口
+// @Schemes
+// @Description 上传文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载
+// @Tags download
+// @Accept json
+// @Param file_type path string true "上传的文件类型，类型为枚举值：audio、resource"
+// @Param file_name path string true "上传的文件名称，需要带上相应后缀，例如audio为.wav, resource为 .png 或 .mp4"
+// @Param file formData file true "上传的文件"
+// @Param Authorization header string true "token"
+// @Produce */*
+// @Success 200 {object} schema.CommResp
+// @Router /{file_type}/{file_name} [post]
 func UploadHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	fileTypeStr := c.Param("file_type")

@@ -123,6 +123,17 @@ func DeleteResourceHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
+// CreateResourceHandler godoc
+// @Summary 创建素材库素材接口
+// @Schemes
+// @Description 创建用户素材库素材
+// @Tags resource lib
+// @Accept json
+// @Produce json
+// @Param req body schema.CreateResourceReq true "素材描述、素材类型(tone、image)， IsPng(如果是image类型，是否是图片形象素材)"
+// @Param Authorization header string true "token"
+// @Success 200 {object} schema.CreateResourceResp
+// @Router /resource [post]
 func CreateResourceHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	var req schema.CreateResourceReq

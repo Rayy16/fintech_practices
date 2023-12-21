@@ -5,6 +5,9 @@ definitions:
         type: string
       user_account:
         type: string
+    required:
+    - decrypt_data
+    - user_account
     type: object
   schema.AuthResp:
     properties:
@@ -22,6 +25,46 @@ definitions:
       msg:
         type: string
     type: object
+  schema.CreateDpReq:
+    properties:
+      audio_link:
+        type: string
+      content:
+        type: string
+      dp_name:
+        type: string
+      image_link:
+        type: string
+      tone_link:
+        type: string
+    required:
+    - audio_link
+    - content
+    - dp_name
+    - image_link
+    - tone_link
+    type: object
+  schema.CreateResourceReq:
+    properties:
+      is_png:
+        type: boolean
+      resource_describe:
+        type: string
+      resource_type:
+        type: string
+    required:
+    - resource_describe
+    - resource_type
+    type: object
+  schema.CreateResourceResp:
+    properties:
+      code:
+        type: integer
+      msg:
+        type: string
+      resource_link:
+        type: string
+    type: object
   schema.DpEntity:
     properties:
       cover_image_link:
@@ -32,6 +75,8 @@ definitions:
         type: string
       dp_name:
         type: string
+      dp_status:
+        type: integer
       hot_score:
         type: integer
       owner:
@@ -78,6 +123,10 @@ definitions:
         type: string
       user_name:
         type: string
+    required:
+    - decrypt_data
+    - user_account
+    - user_name
     type: object
   schema.ResourceEntity:
     properties:
@@ -114,7 +163,7 @@ paths:
       - application/json
       description: 下载文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载
       parameters:
-      - description: 下载的文件类型
+      - description: 下载的文件类型, 类型为枚举值：dp、resource、cover_image
         in: path
         name: file_type
         required: true
@@ -137,6 +186,41 @@ paths:
           schema:
             type: file
       summary: 下载文件接口
+      tags:
+      - download
+    post:
+      consumes:
+      - application/json
+      description: 上传文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载
+      parameters:
+      - description: 上传的文件类型，类型为枚举值：audio、resource
+        in: path
+        name: file_type
+        required: true
+        type: string
+      - description: 上传的文件名称，需要带上相应后缀，例如audio为.wav, resource为 .png 或 .mp4
+        in: path
+        name: file_name
+        required: true
+        type: string
+      - description: 上传的文件
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - '*/*'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schema.CommResp'
+      summary: 上传文件接口
       tags:
       - download
   /dp:
@@ -174,6 +258,32 @@ paths:
           schema:
             $ref: '#/definitions/schema.GetDpResp'
       summary: 查询数字人接口
+      tags:
+      - digital person
+    post:
+      consumes:
+      - application/json
+      description: 创建用户数字人信息
+      parameters:
+      - description: 数字人名称、形象link、音频link、音色link、文本内容。如传输音频link，则音色link与文本内容可为空字符串。如音频link为空字符串，则后二者必须传输
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/schema.CreateDpReq'
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schema.CommResp'
+      summary: 创建数字人接口
       tags:
       - digital person
   /dp/{dp_link}:
@@ -247,7 +357,7 @@ paths:
       parameters:
       - description: 用户名称、用户账户与加密的用户密码
         in: body
-        name: user_name
+        name: req
         required: true
         schema:
           $ref: '#/definitions/schema.RegisterReq'
@@ -261,6 +371,33 @@ paths:
       summary: 注册用户接口
       tags:
       - user
+  /resource:
+    post:
+      consumes:
+      - application/json
+      description: 创建用户素材库素材
+      parameters:
+      - description: 素材描述、素材类型(tone、image)， IsPng(如果是image类型，是否是图片形象素材)
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/schema.CreateResourceReq'
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schema.CreateResourceResp'
+      summary: 创建素材库素材接口
+      tags:
+      - resource lib
   /resource/{resource_link}:
     delete:
       consumes:
