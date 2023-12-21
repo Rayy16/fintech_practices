@@ -27,6 +27,7 @@ type MetadataMarket struct {
 	CoverImageLink   string     `gorm:"column:cover_image_link"`
 	OwnerId          string     `gorm:"column:owner_id"`
 	Deleted          bool       `gorm:"column:deleted"`
+	IsReady          bool       `gorm:"column:is_ready"`
 	CreateTime       *time.Time `gorm:"autoCreateTime; column:create_time"`
 	UpdateTime       *time.Time `gorm:"autoUpdateTime; column:update_time"`
 }
