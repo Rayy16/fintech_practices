@@ -77,7 +77,7 @@ func GetDpHandler(c *gin.Context) {
 	userAccount, _ := raw.(string)
 
 	dps, cnt, err := dao.GetDigitalPersonsBy(
-		dao.OwnerBy(userAccount), dao.AuditedBy(true), dao.OrderBy(field+method), dao.PageBy(req.PageNo, req.PageSize),
+		dao.OwnerBy(userAccount), dao.OrderBy(field+method), dao.PageBy(req.PageNo, req.PageSize),
 	)
 
 	var resp schema.GetDpResp
@@ -103,6 +103,7 @@ func GetDpHandler(c *gin.Context) {
 			DpLink:         dps[i].DpLink,
 			CoverImageLink: dps[i].CoverImageLink,
 			HotScore:       dps[i].HotScore,
+			DpStatus:       dps[i].DpStatus,
 			CreateTime:     dps[i].CreateTime,
 			UpdateTime:     dps[i].UpdateTime,
 		})
