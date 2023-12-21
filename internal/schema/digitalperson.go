@@ -8,6 +8,7 @@ type DpEntity struct {
 	DpLink         string     `json:"dp_link"`
 	CoverImageLink string     `json:"cover_image_link"`
 	HotScore       int        `json:"hot_score"`
+	DpStatus       int        `json:"dp_status"`
 	CreateTime     *time.Time `json:"create_time"`
 	UpdateTime     *time.Time `json:"update_time"`
 }
