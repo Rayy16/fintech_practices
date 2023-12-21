@@ -1,16 +1,15 @@
 package controller
 
 import (
-	"errors"
 	"fintechpractices/global"
 	"fintechpractices/internal/dao"
 	"fintechpractices/internal/model"
 	"fmt"
 	"net/http"
+	"os"
 	"path"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 type fileType struct {
@@ -47,21 +46,21 @@ func DownloadHandler(c *gin.Context) {
 	userAccount, _ := raw.(string)
 
 	// query file belong to user account
-	var err error
+	var cnt int64
 
 	switch fileTypeStr {
 	case FtypeDp.String():
-		_, err = dao.Count(
+		cnt, _ = dao.Count(
 			(&model.DigitalPersonInfo{}).TableName(),
 			dao.OwnerBy(userAccount), dao.DpLinkBy(fileName), dao.StatusBy(dao.StatusSuccess),
 		)
 	case FtypeCoverImage.String():
-		_, err = dao.Count(
+		cnt, _ = dao.Count(
 			(&model.DigitalPersonInfo{}).TableName(),
 			dao.OwnerBy(userAccount), dao.CoverImageLinkBy(fileName), dao.StatusBy(dao.StatusSuccess),
 		)
 	case FtypeResource.String():
-		_, err = dao.Count(
+		cnt, _ = dao.Count(
 			(&model.MetadataMarket{}).TableName(),
 			dao.OwnerBy(userAccount), dao.ResourceLinkBy(fileName),
 		)
@@ -73,24 +72,26 @@ func DownloadHandler(c *gin.Context) {
 		return
 	}
 
-	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			log.Infof("file %s not belong to %s Or not existed", fileName, userAccount)
-			c.JSON(http.StatusOK, gin.H{
-				"msg":  fmt.Sprintf("file %s not belong to %s Or not existed", fileName, userAccount),
-				"code": global.AUTHORIZATION_ERROR,
-			})
-		} else {
-			log.Errorf("check file %s existed by quering db error: %s", fileName, err.Error())
-			c.JSON(http.StatusOK, gin.H{
-				"msg":  fmt.Sprintf("query db error: %s", err.Error()),
-				"code": global.DAO_LAYER_ERROR,
-			})
-		}
+	if cnt == 0 {
+		log.Infof("file %s not belong to %s Or not existed", fileName, userAccount)
+		c.JSON(http.StatusOK, gin.H{
+			"msg":  fmt.Sprintf("file %s not belong to %s Or not existed", fileName, userAccount),
+			"code": global.AUTHORIZATION_ERROR,
+		})
 		return
 	}
 
+	var err error
 	rootDir := global.RootDirMap[fileTypeStr]
 	filepath := path.Join(rootDir, fileName)
+	_, err = os.Stat(filepath)
+	if err != nil {
+		log.Errorf("os.Stat(%s) error: %s", fileName, err.Error())
+		c.JSON(http.StatusOK, gin.H{
+			"msg":  fmt.Sprintf("can not find file %s err: %s", fileName, err.Error()),
+			"code": global.INVALID_FILE_ERROR,
+		})
+		return
+	}
 	c.File(filepath)
 }
