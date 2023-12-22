@@ -2,6 +2,7 @@ package test
 
 import (
 	"bytes"
+	Init "fintechpractices/init"
 	"fintechpractices/tools"
 	"fmt"
 	"os/exec"
@@ -135,4 +136,15 @@ func TestExec(t *testing.T) {
 		fmt.Println(err)
 	}
 	fmt.Println(stdout.String(), stderr.String())
+}
+
+func TestExtractVedio(t *testing.T) {
+	Init.Initialization()
+
+	src := `C:\GoProject\fintech_practices\test\test_dp_1.mp4`
+	dest := `C:\GoProject\fintech_practices\test\test_dp_1.png`
+	err := tools.ExtractVedioToImage(src, dest)
+	if err != nil {
+		t.Error(err.Error())
+	}
 }
