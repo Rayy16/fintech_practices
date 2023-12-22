@@ -90,13 +90,13 @@ func TestRegister(t *testing.T) {
 }
 
 func requestForLogin(t *testing.T) (token string) {
-	// bSlice, err := tools.Encrypt("ccpractices")
-	// if err != nil {
-	// t.Error(err.Error())
-	// }
+	bSlice, err := tools.Encrypt("ccpractices")
+	if err != nil {
+		t.Error(err.Error())
+	}
 	body, err := json.Marshal(schema.AuthReq{
 		UserAccount: "test_admin",
-		DecryptData: "cc_123456",
+		DecryptData: base64.StdEncoding.EncodeToString(bSlice),
 	})
 
 	if err != nil {
