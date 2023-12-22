@@ -36,24 +36,7 @@ func UploadHandler(c *gin.Context) {
 	var err error
 	var resp = schema.DefaultCommResp
 
-	// 判断是否为素材的所有者
-	rs, cnt, err := dao.GetResourceBy(dao.OwnerBy(userAccount), dao.ResourceLinkBy(fileName))
-	if err != nil {
-		log.Errorf("dao.GetResourceBy(%s, %s) err: %s", userAccount, fileName, err.Error())
-		resp.Code = global.DAO_LAYER_ERROR
-		resp.Msg = fmt.Sprintf("get resource by %s err: %s", userAccount, err.Error())
-		c.JSON(http.StatusOK, resp)
-		return
-	}
-	if cnt == 0 {
-		log.Infof("dao.GetResourceBy(%s, %s) not found", userAccount, fileName)
-		resp.Code = global.AUTHORIZATION_ERROR
-		resp.Msg = "authorization err: record not found"
-		c.JSON(http.StatusOK, resp)
-		return
-	}
-	resource := rs[0]
-
+	filePath := filepath.Join(global.RootDirMap[fileTypeStr], fileName)
 	file, err := c.FormFile("file")
 	if err != nil {
 		resp.Msg = fmt.Sprintf("extract file from form err: %s", err.Error())
@@ -61,12 +44,30 @@ func UploadHandler(c *gin.Context) {
 		c.JSON(http.StatusOK, resp)
 		return
 	}
-	filePath := filepath.Join(global.RootDirMap[fileTypeStr], fileName)
+
 	switch fileTypeStr {
 	case FtypeAudio.String():
 		c.SaveUploadedFile(file, filePath)
-		log.Infof("upload resource <%s> file: %s", resource.ResourceType, fileName)
+		log.Infof("upload audio file: %s", fileName)
 	case FtypeResource.String():
+		// 判断是否为素材的所有者
+		rs, cnt, err := dao.GetResourceBy(dao.OwnerBy(userAccount), dao.ResourceLinkBy(fileName))
+		if err != nil {
+			log.Errorf("dao.GetResourceBy(%s, %s) err: %s", userAccount, fileName, err.Error())
+			resp.Code = global.DAO_LAYER_ERROR
+			resp.Msg = fmt.Sprintf("get resource by %s err: %s", userAccount, err.Error())
+			c.JSON(http.StatusOK, resp)
+			return
+		}
+		if cnt == 0 {
+			log.Infof("dao.GetResourceBy(%s, %s) not found", userAccount, fileName)
+			resp.Code = global.AUTHORIZATION_ERROR
+			resp.Msg = "authorization err: record not found"
+			c.JSON(http.StatusOK, resp)
+			return
+		}
+		resource := rs[0]
+
 		c.SaveUploadedFile(file, filePath)
 		log.Infof("upload resource <%s> file: %s", resource.ResourceType, fileName)
 		// 如果是形象素材，则可能需要截取封面
