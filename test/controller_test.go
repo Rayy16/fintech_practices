@@ -10,6 +10,7 @@ import (
 	"fintechpractices/tools"
 	"fmt"
 	"io"
+	"mime/multipart"
 	"net/http"
 	"os"
 	"strings"
@@ -475,4 +476,90 @@ func TestDownloadFile(t *testing.T) {
 		fmt.Println(err.Error())
 	}
 	fmt.Println("download done")
+}
+
+func TestResourceCreate(t *testing.T) {
+	Start()
+	token := requestForLogin(t)
+	if token == "" {
+		t.Error("invalid token")
+	}
+	fmt.Println(token)
+	body, err := json.Marshal(schema.CreateResourceReq{
+		ResourceDescribe: "晓辰 女年轻人语音",
+		ResourceType:     "tone",
+	})
+	if err != nil {
+		t.Error(err.Error())
+	}
+	req, err := http.NewRequest(
+		http.MethodPost,
+		prefix+"/resource",
+		bytes.NewReader(body),
+	)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+token)
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	defer resp.Body.Close()
+	b, _ := io.ReadAll(resp.Body)
+
+	res := schema.CreateResourceResp{}
+	json.Unmarshal(b, &res)
+	if res.Code != 2000 || res.ResourceLink == "" {
+		t.Errorf("unexpected resp: %+v", res)
+	}
+
+	filePath := `C:\GoProject\fintech_practices\test\晓辰 女年轻人语音.wav`
+	file, err := os.Open(filePath)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	defer file.Close()
+
+	formData := &bytes.Buffer{}
+	writer := multipart.NewWriter(formData)
+	part, err := writer.CreateFormFile("file", "晓辰女年轻人语言")
+	if err != nil {
+		t.Error(err.Error())
+	}
+	fileBytes, err := io.ReadAll(file)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	_, err = part.Write(fileBytes)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	writer.Close()
+
+	req, err = http.NewRequest(
+		http.MethodPost,
+		prefix+fmt.Sprintf("/resource/%s", res.ResourceLink),
+		formData,
+	)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+	// req.Header.Set("Content-Type", "multipart/form-data")
+	req.Header.Set("Authorization", "Bearer "+token)
+	resp1, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	defer resp1.Body.Close()
+	var res1 schema.CommResp
+	b1, _ := io.ReadAll(resp1.Body)
+
+	json.Unmarshal(b1, &res1)
+	if res1.Code != 2000 {
+		t.Errorf("unexpected resp: %+v", res1)
+	}
 }
