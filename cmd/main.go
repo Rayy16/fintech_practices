@@ -23,6 +23,8 @@ import (
 func main() {
 
 	Init.Initialization()
+	go global.TaskMgr.Start()
+
 	Run()
 }
 
