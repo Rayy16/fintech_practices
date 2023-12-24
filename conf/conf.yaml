@@ -28,9 +28,15 @@ server:
   dp_root_dir: C:\GoProject\fintech_practices\files\dp
   resource_root_dir: C:\GoProject\fintech_practices\files\resource
   cover_image_root_dir: C:\GoProject\fintech_practices\files\cover_image
+  audio_root_dir: C:\GoProject\fintech_pract\files\audio
 
 model:
-  image:
+  dp:
     exec_cmd: 'python inference.py --driven_audio {{.AudioInput}}  --source_image {{.ImageInput}} --result_dir {{.OutPutDir}} --file_name {{.FileName}} --enhancer gfpgan'
     before_start: 'activate'
     after_end: 'deactivate'
+  audio:
+    exec_cmd: ''
+    before_start: 'activate'
+    after_end: 'deactivate'
+
