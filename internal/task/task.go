@@ -39,9 +39,9 @@ func (e *TaskExcutor) Execute() {
 		if e.Error() != nil {
 			return
 		}
-		_, _ = e.executeStr(execCmd.BeforeCmd)
+		e.executeStr(execCmd.BeforeCmd)
 		std, e.Err = e.executeStr(execCmd.Cmd)
-		_, _ = e.executeStr(execCmd.AfterCmd)
+		e.executeStr(execCmd.AfterCmd)
 	}
 	e.Err = e.checkResult(std[0])
 }
@@ -159,9 +159,11 @@ func (m *TaskManager) rangeTasks() types.TaskExcutorIntf {
 }
 
 func (m *TaskManager) Start() {
+	log := global.Log.Sugar()
 	for {
 		executor := m.rangeTasks()
 		if executor == nil {
+			log.Infof("task manager is closed at %v", time.Now())
 			return
 		}
 		go func() {
