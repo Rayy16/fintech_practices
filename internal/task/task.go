@@ -43,6 +43,9 @@ func (e *TaskExcutor) Execute() {
 		std, e.Err = e.executeStr(execCmd.Cmd)
 		e.executeStr(execCmd.AfterCmd)
 	}
+	if e.Error() != nil {
+		return
+	}
 	e.Err = e.checkResult(std[0])
 }
 
@@ -50,6 +53,8 @@ func (e *TaskExcutor) executeStr(cmd string) (std [2]string, err error) {
 	if cmd == "" {
 		return [2]string{}, nil
 	}
+	log := global.Log.Sugar()
+	log.Infof("exec cmd: %s", cmd)
 	var name string
 	var args []string
 	name, args = tools.SplitCmd(cmd)
@@ -89,7 +94,8 @@ func (m *TaskManager) RegisterTask(taskID string, args ...types.TaskArgs) error 
 	log := global.Log.Sugar()
 
 	if status, ok := m.taskStatus.Load(taskID); ok {
-		dpStatus := status.(int)
+		info := status.(TaskInfo)
+		dpStatus := info.Status
 		if dpStatus == types.Running || dpStatus == types.Runnable {
 			log.Info("task already register, task status: %d", dpStatus)
 			return nil
