@@ -28,3 +28,14 @@ server:
   dp_root_dir: C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\files\dp
   resource_root_dir: C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\files\resource
   cover_image_root_dir: C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\files\cover_image
+  audio_root_dir: C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\files\audio
+
+model:
+  dp:
+    exec_cmd: 'python C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\pkg\SadTalker-main\inference.py --driven_audio {{.AudioInput}}  --source_image {{.ImageInput}} --result_dir {{.OutPutDir}} --file_name {{.FileName}} --enhancer gfpgan'
+    before_start: ''
+    after_end: ''
+  audio:
+    exec_cmd: ''
+    before_start: ''
+    after_end: ''
