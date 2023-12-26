@@ -41,6 +41,9 @@ func (e *TaskExcutor) Execute() {
 		}
 		e.executeStr(execCmd.BeforeCmd)
 		std, e.Err = e.executeStr(execCmd.Cmd)
+		if e.Error() != nil {
+			e.Err = fmt.Errorf("%s: %s", e.Err.Error(), std[1])
+		}
 		e.executeStr(execCmd.AfterCmd)
 	}
 	if e.Error() != nil {

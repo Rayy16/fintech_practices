@@ -230,6 +230,7 @@ func CreateDpHandler(c *gin.Context) {
 				}
 				dao.UpdateDPStatusByLink(dpLink, dao.StatusSuccess)
 				log.Infof("dp <%s> create success", dpLink)
+				return
 			default:
 				time.Sleep(time.Second)
 			}
