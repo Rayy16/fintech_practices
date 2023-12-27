@@ -157,7 +157,7 @@ info:
   title: cc fintech practices API
   version: "1.0"
 paths:
-  /{file_type}/{file_name}:
+  /download/{file_type}/{file_name}:
     get:
       consumes:
       - application/json
@@ -186,41 +186,6 @@ paths:
           schema:
             type: file
       summary: 下载文件接口
-      tags:
-      - download
-    post:
-      consumes:
-      - application/json
-      description: 上传文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载
-      parameters:
-      - description: 上传的文件类型，类型为枚举值：audio、resource
-        in: path
-        name: file_type
-        required: true
-        type: string
-      - description: 上传的文件名称，需要带上相应后缀，例如audio为.wav, resource为 .png 或 .mp4
-        in: path
-        name: file_name
-        required: true
-        type: string
-      - description: 上传的文件
-        in: formData
-        name: file
-        required: true
-        type: file
-      - description: token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - '*/*'
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/schema.CommResp'
-      summary: 上传文件接口
       tags:
       - download
   /dp:
@@ -462,4 +427,40 @@ paths:
       summary: 查询素材库接口
       tags:
       - resource lib
+  /upload/{file_type}/{file_name}:
+    post:
+      consumes:
+      - application/json
+      description: 上传文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载
+      parameters:
+      - description: 上传的文件类型，类型为枚举值：audio、resource
+        in: path
+        name: file_type
+        required: true
+        type: string
+      - description: 上传的文件名称，需要带上相应后缀，例如audio为.wav, resource为 .png 或 .mp4
+        in: path
+        name: file_name
+        required: true
+        type: string
+      - description: 上传的文件
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - '*/*'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schema.CommResp'
+      summary: 上传文件接口
+      tags:
+      - download
 swagger: "2.0"

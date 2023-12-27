@@ -38,7 +38,7 @@ var (
 // @Param Authorization header string true "token"
 // @Produce */*
 // @Success 200 {file} file
-// @Router /{file_type}/{file_name} [get]
+// @Router /download/{file_type}/{file_name} [get]
 func DownloadHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	fileTypeStr := c.Param("file_type")

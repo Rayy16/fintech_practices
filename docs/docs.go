@@ -24,6 +24,52 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/download/{file_type}/{file_name}": {
+            "get": {
+                "description": "下载文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "tags": [
+                    "download"
+                ],
+                "summary": "下载文件接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "下载的文件类型, 类型为枚举值：dp、resource、cover_image",
+                        "name": "file_type",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "下载的文件名称",
+                        "name": "file_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
         "/dp": {
             "get": {
                 "description": "查询用户所拥有的数字人信息",
@@ -386,51 +432,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/{file_type}/{file_name}": {
-            "get": {
-                "description": "下载文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "*/*"
-                ],
-                "tags": [
-                    "download"
-                ],
-                "summary": "下载文件接口",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "下载的文件类型, 类型为枚举值：dp、resource、cover_image",
-                        "name": "file_type",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "下载的文件名称",
-                        "name": "file_name",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "file"
-                        }
-                    }
-                }
-            },
+        "/upload/{file_type}/{file_name}": {
             "post": {
                 "description": "上传文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载",
                 "consumes": [

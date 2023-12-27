@@ -26,7 +26,7 @@ import (
 // @Param Authorization header string true "token"
 // @Produce */*
 // @Success 200 {object} schema.CommResp
-// @Router /{file_type}/{file_name} [post]
+// @Router /upload/{file_type}/{file_name} [post]
 func UploadHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	fileTypeStr := c.Param("file_type")
