@@ -39,7 +39,7 @@ func registerHandler(engine *gin.Engine) {
 	authGroup := engine.Group("", controller.GetAuthMiddleware())
 	{
 
-		authGroup.GET("/:file_type/:file_name", controller.DownloadHandler)
+		authGroup.GET("/download/:file_type/:file_name", controller.DownloadHandler)
 
 		authGroup.GET("/dp", controller.GetDpHandler)
 
@@ -55,7 +55,7 @@ func registerHandler(engine *gin.Engine) {
 
 		authGroup.POST("/resource", controller.CreateResourceHandler)
 
-		authGroup.POST("/:file_type/:file_name", controller.UploadHandler)
+		authGroup.POST("/upload/:file_type/:file_name", controller.UploadHandler)
 	}
 
 }
