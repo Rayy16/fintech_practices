@@ -60,10 +60,17 @@ func DownloadHandler(c *gin.Context) {
 			(&model.DigitalPersonInfo{}).TableName(),
 			dao.OwnerBy(userAccount), dao.CoverImageLinkBy(fileName), dao.StatusBy(dao.StatusSuccess),
 		)
+		// 如果不是数字人截图，则判断是否是形象素材的截图
+		if cnt == 0 {
+			cnt, _ = dao.Count(
+				(&model.MetadataMarket{}).TableName(),
+				dao.OwnerBy(userAccount), dao.CoverImageLinkBy(fileName), dao.IsReady(), dao.TypeBy(dao.TypeImage),
+			)
+		}
 	case FtypeResource.String():
 		cnt, _ = dao.Count(
 			(&model.MetadataMarket{}).TableName(),
-			dao.OwnerBy(userAccount), dao.ResourceLinkBy(fileName),
+			dao.OwnerBy(userAccount), dao.ResourceLinkBy(fileName), dao.IsReady(),
 		)
 	default:
 		c.JSON(http.StatusOK, gin.H{
