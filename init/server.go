@@ -34,6 +34,9 @@ func registerHandler(engine *gin.Engine) {
 	engine.GET("/pubkey", controller.PubKeyHandler)
 	engine.POST("/register", controller.RegisterHandler)
 	engine.POST("/login", controller.AuthHandler)
+	engine.GET("/download/public/:file_type/:file_name", controller.PublicDownloadHandler)
+	engine.GET("/hotvedio", controller.HotVedioHandler)
+
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	authGroup := engine.Group("", controller.GetAuthMiddleware())
@@ -44,8 +47,6 @@ func registerHandler(engine *gin.Engine) {
 		authGroup.GET("/dp", controller.GetDpHandler)
 
 		authGroup.DELETE("/dp/:dp_link", controller.DeleteDpHandler)
-
-		// authGroup.GET("/hotvedio", controller.HotVedioHandler)
 
 		authGroup.GET("/resource/:resource_type", controller.GetResourceHandler)
 
