@@ -7,7 +7,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-const TokenExpireDuration = time.Hour * 24
+const TokenExpireDuration = time.Hour * 240
 
 var CommSecret = []byte("CC-fintech-practices")
 
