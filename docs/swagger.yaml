@@ -188,6 +188,32 @@ paths:
       summary: 下载文件接口
       tags:
       - download
+  /download/public/{file_type}/{file_name}:
+    get:
+      consumes:
+      - application/json
+      description: 下载公共文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载
+      parameters:
+      - description: 下载的文件类型, 类型为枚举值：dp、resource、cover_image
+        in: path
+        name: file_type
+        required: true
+        type: string
+      - description: 下载的文件名称
+        in: path
+        name: file_name
+        required: true
+        type: string
+      produces:
+      - '*/*'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: file
+      summary: 下载公共文件接口
+      tags:
+      - download
   /dp:
     get:
       consumes:
@@ -277,6 +303,30 @@ paths:
       summary: 删除数字人接口
       tags:
       - digital person
+  /hotvedio:
+    get:
+      consumes:
+      - application/json
+      description: 获取首页数字人视频
+      parameters:
+      - description: 分页查询，页码
+        in: query
+        name: pageNo
+        type: string
+      - description: 分页查询，页大小
+        in: query
+        name: pageSize
+        type: string
+      produces:
+      - '*/*'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schema.GetDpResp'
+      summary: 首页视频接口
+      tags:
+      - homepage
   /login:
     post:
       consumes:

@@ -24,6 +24,45 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/download/public/{file_type}/{file_name}": {
+            "get": {
+                "description": "下载公共文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "tags": [
+                    "download"
+                ],
+                "summary": "下载公共文件接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "下载的文件类型, 类型为枚举值：dp、resource、cover_image",
+                        "name": "file_type",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "下载的文件名称",
+                        "name": "file_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
         "/download/{file_type}/{file_name}": {
             "get": {
                 "description": "下载文件的统一接口，数字人、封面图片、素材库素材均通过本接口下载",
@@ -199,6 +238,43 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/schema.CommResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/hotvedio": {
+            "get": {
+                "description": "获取首页数字人视频",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "tags": [
+                    "homepage"
+                ],
+                "summary": "首页视频接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "分页查询，页码",
+                        "name": "pageNo",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "分页查询，页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schema.GetDpResp"
                         }
                     }
                 }
