@@ -11,6 +11,17 @@ import (
 )
 
 // /hotvedio/pageNo=?&pageSize=?
+// HotVedioHandler godoc
+// @Summary 首页视频接口
+// @Schemes
+// @Description 获取首页数字人视频
+// @Tags homepage
+// @Accept json
+// @Param pageNo query string false "分页查询，页码"
+// @Param pageSize query string false "分页查询，页大小"
+// @Produce */*
+// @Success 200 {object} schema.GetDpResp
+// @Router /hotvedio [get]
 func HotVedioHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	var req = schema.PageParams{PageNo: 1, PageSize: 5}
