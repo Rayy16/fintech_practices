@@ -70,13 +70,9 @@ func UploadHandler(c *gin.Context) {
 
 		c.SaveUploadedFile(file, filePath)
 		log.Infof("upload resource <%s> file: %s", resource.ResourceType, fileName)
-		// 如果是形象素材，则可能需要截取封面
-		if resource.ResourceType == dao.TypeImage.String() {
-			// 如果形象素材不是视频形象，那么跳过即可
-			if !strings.Contains(resource.ResourceLink, ".mp4") {
-				break
-			}
-			// 如果形象素材是视频形象，那么需要截取封面
+		// 如果是视频形象素材，则需要截取封面
+		// 图片形象素材 以及 音色素材则跳过
+		if resource.ResourceType == dao.TypeImage.String() && strings.Contains(resource.ResourceLink, ".mp4") {
 			coverImagePath := filepath.Join(global.RootDirMap[FtypeCoverImage.String()], resource.CoverImageLink)
 			err = tools.ExtractVedioToImage(filePath, coverImagePath)
 			if err != nil {
@@ -85,6 +81,7 @@ func UploadHandler(c *gin.Context) {
 				c.JSON(http.StatusOK, resp)
 			}
 		}
+		// 最后都要经过 素材状态 的更新方法
 		err = dao.UpdateResourceByLink(fileName, map[string]interface{}{"is_ready": true})
 	default:
 		resp.Code = global.INVALID_FILE_ERROR

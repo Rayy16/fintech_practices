@@ -102,6 +102,7 @@ func DownloadHandler(c *gin.Context) {
 		return
 	}
 	c.File(filepath)
+	log.Infof("<%s> <%s> download success", fileTypeStr, fileName)
 }
 
 // PublicDownloadHandler godoc
@@ -119,8 +120,6 @@ func PublicDownloadHandler(c *gin.Context) {
 	log := global.Log.Sugar()
 	fileTypeStr := c.Param("file_type")
 	fileName := c.Param("file_name")
-	raw, _ := c.Get("user_account")
-	userAccount, _ := raw.(string)
 
 	// query file belong to user account
 	var cnt int64
@@ -157,9 +156,9 @@ func PublicDownloadHandler(c *gin.Context) {
 	}
 
 	if cnt == 0 {
-		log.Infof("file %s not belong to %s Or not existed", fileName, userAccount)
+		log.Infof("file %s not existed", fileName)
 		c.JSON(http.StatusOK, gin.H{
-			"msg":  fmt.Sprintf("file %s not belong to %s Or not existed", fileName, userAccount),
+			"msg":  fmt.Sprintf("file %s not existed", fileName),
 			"code": global.AUTHORIZATION_ERROR,
 		})
 		return

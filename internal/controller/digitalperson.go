@@ -167,7 +167,7 @@ func CreateDpHandler(c *gin.Context) {
 		c.JSON(http.StatusOK, resp)
 		return
 	}
-
+	log.Infof("request body: %+v", req)
 	// 判断是否需要调用模型生成Audio
 	args := make([]types.TaskArgs, 0)
 	var dpLink string
@@ -210,6 +210,7 @@ func CreateDpHandler(c *gin.Context) {
 		c.JSON(http.StatusOK, resp)
 		return
 	}
+	log.Infof("create digital person <%s> owner by %s", dp.DpId, dp.OwnerId)
 
 	global.TaskMgr.RegisterTask(dpLink, args...)
 	go func() {
