@@ -4,6 +4,7 @@ import (
 	"fintechpractices/configs"
 	"fintechpractices/global"
 	Init "fintechpractices/init"
+	"fintechpractices/internal/controller"
 	"fintechpractices/internal/task"
 	"fintechpractices/internal/task/types"
 	"fmt"
@@ -80,6 +81,40 @@ func TestTaskMgr(t *testing.T) {
 		if info.Status == types.Runnable || info.Status == types.Running {
 			time.Sleep(time.Second * 3)
 			fmt.Printf("task <test_Task_1> is %d\n", info.Status)
+			continue
+		}
+
+		if info.Status == types.Failed {
+			t.Errorf(info.Msg)
+			return
+		}
+		fmt.Println(info)
+		return
+	}
+}
+
+func TestVitsModel(t *testing.T) {
+	InitAndStart()
+
+	err := global.TaskMgr.RegisterTask("test_audio_task", types.AudioArgs{
+		TextInput: "尝试生成一个测试音频任务，并进行执行",
+		ToneInput: "update_qihan",
+		OutputDir: global.RootDirMap[controller.FtypeAudio.String()],
+		FileName:  "test_audio_task.wav",
+	})
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+	for {
+		data, ok := global.TaskMgr.QueryTask("test_audio_task")
+		if !ok {
+			t.Errorf("can not find task")
+			return
+		}
+		info := data.(task.TaskInfo)
+		if info.Status == types.Runnable || info.Status == types.Running {
+			time.Sleep(time.Second * 3)
+			fmt.Printf("task <test_audio_task> is %d\n", info.Status)
 			continue
 		}
 

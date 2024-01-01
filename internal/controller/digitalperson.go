@@ -173,7 +173,8 @@ func CreateDpHandler(c *gin.Context) {
 	var dpLink string
 	var coverImageLink string
 	if req.AudioLink == "" {
-		req.AudioLink = tools.GenMD5(req.Content+req.ToneLink) + ".wav"
+		rawAudioLink := tools.GenMD5(req.Content + req.ToneLink)
+		req.AudioLink = rawAudioLink + ".wav"
 		args = append(args, types.AudioArgs{
 			TextInput: req.Content,
 			ToneInput: filepath.Join(global.RootDirMap[FtypeResource.String()], req.ImageLink),
