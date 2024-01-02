@@ -35,16 +35,20 @@ type TaskExcutor struct {
 
 func (e *TaskExcutor) Execute() {
 	var std [2]string
+	cmds := make([]string, 0, len(e.Cmds)*3)
 	for _, execCmd := range e.Cmds {
+		cmds = append(cmds, execCmd.BeforeCmd)
+		cmds = append(cmds, execCmd.Cmd)
+		cmds = append(cmds, execCmd.AfterCmd)
+	}
+	for _, cmd := range cmds {
 		if e.Error() != nil {
 			return
 		}
-		e.executeStr(execCmd.BeforeCmd)
-		std, e.Err = e.executeStr(execCmd.Cmd)
+		std, e.Err = e.executeStr(cmd)
 		if e.Error() != nil {
-			e.Err = fmt.Errorf("%s: %s", e.Err.Error(), std[1])
+			e.Err = fmt.Errorf("err: %s:\n stdout:\n%s\nstderr:%s\n", e.Err.Error(), std[0], std[1])
 		}
-		e.executeStr(execCmd.AfterCmd)
 	}
 	if e.Error() != nil {
 		return

@@ -138,11 +138,27 @@ func TestExec(t *testing.T) {
 	fmt.Println(stdout.String(), stderr.String())
 }
 
+func TestExecTool(t *testing.T) {
+	std, err := tools.RunCmd("activate", []string{"so-vits-svc_cc"})
+	if err != nil {
+		fmt.Printf("err: %s\nstdout: %s\nstderr: %s\n", err.Error(), std[0], std[1])
+		t.Fail()
+	}
+	fmt.Printf("stdout: %s\nstderr: %s\n", std[0], std[1])
+
+	std, err = tools.RunCmd("activate", []string{"base"})
+	if err != nil {
+		fmt.Printf("err: %s\nstdout: %s\nstderr: %s\n", err.Error(), std[0], std[1])
+		t.Fail()
+	}
+	fmt.Printf("stdout: %s\nstderr: %s\n", std[0], std[1])
+}
+
 func TestExtractVedio(t *testing.T) {
 	Init.Initialization()
 
-	src := `C:\GoProject\fintech_practices\test\test_dp_1.mp4`
-	dest := `C:\GoProject\fintech_practices\test\test_dp_1.png`
+	src := `C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\files\dp\96860df8c3aa4859da7283764e4c204c.mp4.mp4`
+	dest := `C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\files\cover_image\dbc732a1fbf712bb3a07e62f86800cd6`
 	err := tools.ExtractVedioToImage(src, dest)
 	if err != nil {
 		t.Error(err.Error())

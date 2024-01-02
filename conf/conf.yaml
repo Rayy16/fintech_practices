@@ -32,10 +32,10 @@ server:
 
 model:
   dp:
-    exec_cmd: 'python C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\pkg\SadTalker-main\inference.py --driven_audio {{.AudioInput}} --source_image {{.ImageInput}} --result_dir {{.OutputDir}} --file_name {{.FileName}} --enhancer gfpgan'
+    exec_cmd: 'C:\ProgramData\anaconda3\envs\SadTalker_cc\python C:\Users\Administrator\Desktop\CC\12-8_clone\fintech_practices\pkg\SadTalker-main\inference.py --driven_audio {{.AudioInput}} --source_image {{.ImageInput}} --result_dir {{.OutputDir}} --file_name {{.FileName}} --enhancer gfpgan --preprocess full --still'
     before_start: ''
     after_end: ''
   audio:
-    exec_cmd: ''
+    exec_cmd: 'C:\ProgramData\anaconda3\envs\so-vits-svc_cc\python C:\Users\Administrator\Desktop\CC\VITS-fast-fine-tuning-main\cmd_inference.py -m C:\Users\Administrator\Desktop\CC\VITS-fast-fine-tuning-main\OUTPUT_MODEL_C_50_123\G_latest.pth -c C:\Users\Administrator\Desktop\CC\VITS-fast-fine-tuning-main\OUTPUT_MODEL_C_50_123\config.json -o {{.OutputDir}} -l 简体中文 -t {{.TextInput}} -s {{.ToneInput}} -on {{.FileName}} -ns .300 -ls 0.8 -nsw .950'
     before_start: ''
     after_end: ''
