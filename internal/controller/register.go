@@ -51,10 +51,10 @@ func RegisterHandler(c *gin.Context) {
 
 	var user model.UserInfo
 	// ===== 改成明文传输密码 =====
-	var password string
-	var err error
-	password, err = req.DecryptData, nil
-	// password, err := tools.Decrypt(req.DecryptData)
+	// var password string
+	// var err error
+	// password, err = req.DecryptData, nil
+	password, err := tools.Decrypt(req.DecryptData)
 
 	// ===========================
 	if err != nil {

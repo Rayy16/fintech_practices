@@ -40,8 +40,8 @@ func AuthHandler(c *gin.Context) {
 	log.Infof("parans: %+v user: %+v", c.Params, user)
 	// ===== 改成明文传输密码 =====
 
-	password, err := user.DecryptData, nil
-	// password, err := tools.Decrypt(user.DecryptData)
+	// password, err := user.DecryptData, nil
+	password, err := tools.Decrypt(user.DecryptData)
 
 	// ===========================
 	if err != nil {

@@ -45,6 +45,8 @@ github.com/PuerkitoBio/purell v1.1.1 h1:WEQqlqaGbrPkxLJWfBwQmfEAE1Z7ONdDLqrN38tN
 github.com/PuerkitoBio/purell v1.1.1/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 h1:d+Bc7a5rLufV/sSk/8dngufqelfh6jnri85riMAaF/M=
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578/go.mod h1:uGdkoq3SwY9Y+13GIhn11/XLaGBb4BfwItxLd5jeuXE=
+github.com/adeven/go-wrk v0.0.0-20200418124433-63e11dd31fef h1:9ReojFXBwV4MhH5UYmWoB0Xz7ilFqW1mZeelVAlxxVc=
+github.com/adeven/go-wrk v0.0.0-20200418124433-63e11dd31fef/go.mod h1:IzL4XE4eKgV2BPMEYAYIVGdkdfSEo/9+vwc/QzR24Q8=
 github.com/aws/aws-sdk-go v1.38.20/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
 github.com/aws/aws-sdk-go v1.49.8 h1:gKgEiyJ8CPnr4r6pS06WfNXvp6z34JER1pBIwuocvVA=
 github.com/aws/aws-sdk-go v1.49.8/go.mod h1:LF8svs817+Nz+DmiMQKTO3ubZ/6IaTpq3TjupRn3Eqk=

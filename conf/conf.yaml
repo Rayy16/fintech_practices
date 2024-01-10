@@ -25,10 +25,10 @@ server:
   host: 127.0.0.1
   port: 8080
   engine_mode: debug
-  dp_root_dir: C:\GoProject\fintech_practices\files\dp
-  resource_root_dir: C:\GoProject\fintech_practices\files\resource
-  cover_image_root_dir: C:\GoProject\fintech_practices\files\cover_image
-  audio_root_dir: C:\GoProject\fintech_practices\files\audio
+  dp_root_dir: 
+  resource_root_dir: 
+  cover_image_root_dir: 
+  audio_root_dir: 
 
 model:
   dp:
